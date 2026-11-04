@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2042%2042%22%3E%3Cdefs%3E%3ClinearGradient%20id=%22g%22%20x1=%220%22%20y1=%220%22%20x2=%221%22%20y2=%221%22%3E%3Cstop%20offset=%220%22%20stop-color=%22%2314b8a6%22/%3E%3Cstop%20offset=%221%22%20stop-color=%22%230a6b5e%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width=%2242%22%20height=%2242%22%20rx=%2213%22%20fill=%22url%28%23g%29%22/%3E%3Ccircle%20cx=%2233%22%20cy=%229%22%20r=%224.5%22%20fill=%22%23ff8a3d%22/%3E%3Cg%20fill=%22none%22%20stroke=%22%23fff%22%20stroke-width=%223%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20d=%22M10%2016h20M24%2010l6%206-6%206%22/%3E%3Cpath%20d=%22M32%2027H12M18%2021l-6%206%206%206%22/%3E%3C/g%3E%3C/svg%3E">
+<!-- Para usar tu propio logo: reemplaza el href de arriba por "logo.png" (sube ese archivo al repositorio junto a index.html) -->
+<title>TruequeFacil · Intercambia lo que no usas</title>
+<style>
+:root{--ink:#222;--txt:#333;--mid:#777;--line:#bbb;--soft:#eee;--pale:#f5f5f5;--img:#d9d9d9}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--txt);background:#fff;font-size:15px}
+a{color:inherit;text-decoration:none;cursor:pointer}
+h1,h2,h3{color:var(--ink);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+/* nav */
+header{border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:20}
+.nav{display:flex;align-items:center;gap:14px;padding:12px 20px;max-width:1180px;margin:0 auto;flex-wrap:wrap}
+.logo{font-size:28px;font-weight:700;color:var(--ink);margin-right:8px}
+.search{display:flex;flex:1;min-width:200px;max-width:460px}
+.search input{flex:1;border:1px solid #888;border-right:0;padding:10px 12px;font-size:14px;border-radius:6px 0 0 6px}
+.search button{border-radius:0 6px 6px 0}
+.spacer{flex:1}
+.navlink{font-weight:700;color:var(--ink);position:relative}
+.badge{background:var(--ink);color:#fff;border-radius:50%;font-size:11px;padding:2px 6px;margin-left:4px}
+/* botones */
+.btn{display:inline-block;border:1px solid #555;background:#fff;color:var(--ink);padding:9px 16px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;text-align:center}
+.btn:hover{background:var(--soft)}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.dark:hover{background:#000}
+.btn.block{display:block;width:100%}
+.btn.sm{padding:6px 12px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+/* chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.chip{border:1px solid #888;border-radius:999px;padding:7px 16px;font-size:13px;background:#fff;cursor:pointer;color:var(--txt)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:700}
+.tag{display:inline-block;border:1px solid #888;border-radius:999px;padding:4px 12px;font-size:12px;margin:0 6px 6px 0}
+/* hero */
+.hero{background:var(--soft);border:1px solid #ccc;padding:28px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:20px;border-radius:6px}
+.hero h1{font-size:30px;margin-bottom:8px}
+.hero .grow{flex:1;min-width:260px}
+.aviso{border:1px dashed #888;background:#fff;padding:12px 16px;font-size:13px;font-style:italic;max-width:360px}
+/* tarjetas */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.card{border:1px solid var(--line);border-radius:4px;padding:8px;background:#fff;display:block;transition:box-shadow .15s}
+.card:hover{box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.card img,.ph{width:100%;height:150px;object-fit:cover;display:block;border:1px solid #aaa}
+.ph{background:linear-gradient(to top right,transparent calc(50% - 1px),#aaa,transparent calc(50% + 1px)),linear-gradient(to bottom right,transparent calc(50% - 1px),#aaa,transparent calc(50% + 1px)),var(--img);position:relative}
+.ph span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--img);color:var(--mid);font-size:11px;font-weight:700;padding:3px 8px}
+.card h3{font-size:15px;margin:10px 2px 2px}
+.card .meta{font-size:12px;color:var(--mid);margin:0 2px 8px}
+.card .busca{background:var(--soft);border-radius:999px;padding:5px 10px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sold{position:absolute;top:8px;left:8px;background:var(--ink);color:#fff;font-size:11px;padding:3px 8px}
+.row{display:flex;justify-content:space-between;align-items:center;margin:26px 0 12px;gap:10px;flex-wrap:wrap}
+.row h2{font-size:21px}
+/* explorar */
+.layout{display:grid;grid-template-columns:240px 1fr;gap:24px;margin-top:22px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}}
+.panel{border:1px solid var(--line);padding:16px;border-radius:4px;align-self:start}
+.panel h4{margin:14px 0 8px;color:var(--ink);font-size:14px}
+.panel h4:first-of-type{margin-top:6px}
+.panel label{display:block;font-size:14px;margin:6px 0;cursor:pointer}
+.panel input[type=checkbox],.panel input[type=radio]{margin-right:8px;accent-color:#222}
+/* formularios */
+input,select,textarea{font-family:inherit;font-size:14px;border:1px solid #999;border-radius:4px;padding:10px;width:100%;background:#fff;color:var(--txt)}
+textarea{min-height:110px;resize:vertical}
+label.f{display:block;font-weight:700;color:var(--ink);font-size:13px;margin:14px 0 5px}
+.formcard{border:1px solid #999;padding:28px;max-width:460px;margin:34px auto;border-radius:4px}
+.formcard.wide{max-width:760px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.two{grid-template-columns:1fr}}
+.err{color:#000;background:var(--soft);border:1px solid #888;padding:8px 12px;margin-top:12px;font-size:13px;display:none}
+.center{text-align:center}
+.muted{color:var(--mid);font-size:13px}
+/* detalle */
+.detail{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:20px}
+@media(max-width:800px){.detail{grid-template-columns:1fr}}
+.main-img{width:100%;height:380px;object-fit:cover;border:1px solid #aaa}
+.main-img.ph{height:380px}
+.thumbs{display:flex;gap:10px;margin-top:10px}
+.thumbs img,.thumbs .ph{width:80px;height:64px;cursor:pointer;border:1px solid #aaa;object-fit:cover}
+.box{background:var(--pale);border:1px solid #ccc;padding:12px;margin:6px 0 16px;border-radius:4px;white-space:pre-wrap}
+.want{background:var(--soft);border:1px solid #888;font-weight:700;color:var(--ink)}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--img);border:1px solid #999;display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:#555;vertical-align:middle}
+.avatar.big{width:96px;height:96px;font-size:36px}
+/* subir */
+.upl{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.slot{width:100px;height:100px;border:1px dashed #888;background:var(--pale);display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;color:var(--mid);font-weight:700;position:relative;cursor:pointer}
+.slot img{width:100%;height:100%;object-fit:cover}
+.slot .x{position:absolute;top:2px;right:2px;background:var(--ink);color:#fff;border-radius:50%;width:20px;height:20px;line-height:20px;font-size:12px;text-align:center}
+/* perfil / propuestas */
+.profile{display:grid;grid-template-columns:260px 1fr;gap:24px;margin-top:22px}
+@media(max-width:800px){.profile{grid-template-columns:1fr}}
+.stats{display:flex;justify-content:space-around;margin:16px 0}
+.stats b{display:block;font-size:22px;color:var(--ink)}
+.stats span{font-size:12px;color:var(--mid)}
+.tabs{display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.offer{border:1px solid var(--line);border-radius:4px;padding:12px;margin-bottom:14px;display:grid;grid-template-columns:1fr 40px 1fr 190px;gap:12px;align-items:center}
+@media(max-width:900px){.offer{grid-template-columns:1fr}}
+.offer .it{display:flex;gap:10px;align-items:center}
+.offer .it img,.offer .it .ph{width:70px;height:70px;flex:none}
+.offer .arrow{font-size:24px;text-align:center;color:var(--mid)}
+.status{display:inline-block;border:1px solid #777;border-radius:999px;padding:3px 12px;font-size:12px;margin:4px 0}
+.contact{background:var(--soft);border:1px dashed #666;padding:8px;font-size:12px;margin-top:6px}
+.empty{border:1px dashed #999;padding:40px;text-align:center;color:var(--mid);background:var(--pale);border-radius:4px}
+/* modal */
+#modal{display:none;position:fixed;inset:0;background:rgba(30,30,30,.55);z-index:50;align-items:center;justify-content:center;padding:16px}
+#modal.open{display:flex}
+.modal{background:#fff;border:1px solid #777;max-width:480px;width:100%;padding:28px;position:relative;max-height:90vh;overflow:auto;border-radius:4px}
+.modal .close{position:absolute;right:14px;top:10px;font-size:20px;cursor:pointer;font-weight:700}
+.pick{display:flex;gap:10px;align-items:center;border:1px solid var(--line);padding:8px;margin:8px 0;cursor:pointer;border-radius:4px}
+.pick:has(input:checked){border-color:var(--ink);background:var(--soft)}
+.pick input{width:auto;margin:0}
+.pick img,.pick .ph{width:56px;height:56px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 22px;border-radius:6px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:60}
+#toast.show{opacity:1}
+footer{border-top:1px solid var(--line);margin-top:50px;padding:20px;text-align:center;font-size:12px;color:var(--mid)}
+
+/* ===== Tema de color TruequeFacil ===== */
+:root{--ink:#1c2b36;--txt:#34454f;--mid:#6b7c86;--brand:#0e9384;--brand2:#0a6b5e;--accent:#ff8a3d;--tint:#e3f5f2;--soft:#edf6f5;--pale:#f4faf9;--line:#cfe0dd;--img:#d4e9e6}
+body{background:#fbfefd}
+header{border-bottom:0;box-shadow:0 2px 14px rgba(14,147,132,.14)}
+.logo{display:flex;align-items:center;gap:9px;font-size:25px;font-weight:800;letter-spacing:-.6px;margin-right:10px}
+.logo b{color:var(--accent);font-weight:800}
+.logo svg{filter:drop-shadow(0 3px 5px rgba(14,147,132,.35));transition:transform .3s}
+.logo:hover svg{transform:rotate(180deg)}
+.navlink:hover{color:var(--brand)}
+.badge{background:var(--accent)}
+.btn{border-color:var(--brand);color:var(--brand2);border-radius:999px}
+.btn:hover{background:var(--tint)}
+.btn.dark{background:linear-gradient(135deg,var(--brand),var(--brand2));border-color:transparent;color:#fff;box-shadow:0 3px 10px rgba(14,147,132,.3)}
+.btn.dark:hover{background:linear-gradient(135deg,#12a897,#0a6b5e);filter:none;transform:translateY(-1px)}
+.search input{border-color:var(--brand);border-radius:999px 0 0 999px;padding-left:16px}
+.search button{border-radius:0 999px 999px 0}
+.chip{border-color:var(--brand);color:var(--brand2)}
+.chip:hover{background:var(--tint)}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.hero{background:linear-gradient(120deg,#d4f1ec 0%,#fff0e1 100%);border:0;border-radius:22px;padding:34px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,138,61,.18)}
+.hero::before{content:"";position:absolute;left:38%;bottom:-90px;width:200px;height:200px;border-radius:50%;background:rgba(14,147,132,.13)}
+.hero>*{position:relative;z-index:1}
+.hero h1{font-size:34px}
+.hero h1 em{font-style:normal;color:var(--brand)}
+.aviso{border-color:var(--accent);background:#fff;border-radius:12px}
+.card{border-radius:16px;border-color:var(--line);padding:10px;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 10px 24px rgba(14,147,132,.22);transform:translateY(-3px)}
+.card img,.ph{border-radius:12px;border-color:var(--line)}
+.card .busca{background:#fff0e1;color:#9a4a10;font-weight:700}
+.sold{background:var(--accent)}
+.tag{border-color:var(--brand);color:var(--brand2);background:var(--tint)}
+.box{border-radius:12px;border-color:var(--line)}
+.want{background:#fff0e1;border-color:var(--accent);color:#7a3a0a}
+.avatar{background:var(--tint);border-color:var(--brand);color:var(--brand2)}
+.panel,.formcard,.offer{border-radius:16px;border-color:var(--line)}
+.formcard{box-shadow:0 10px 30px rgba(14,147,132,.13)}
+input,select,textarea{border-color:#a9c7c2;border-radius:10px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);border-color:var(--brand)}
+.panel input[type=checkbox],.panel input[type=radio]{accent-color:var(--brand)}
+.empty{background:var(--pale);border-color:var(--brand);border-radius:16px}
+.slot{border-color:var(--brand);background:var(--tint);color:var(--brand2);border-radius:12px}
+.slot img{border-radius:12px}.slot .x{background:var(--brand)}
+.pick{border-radius:12px}.pick:has(input:checked){border-color:var(--brand);background:var(--tint)}
+.modal{border:0;border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.status{border-color:var(--brand);color:var(--brand2);background:var(--tint)}
+.contact{background:#fff0e1;border-color:var(--accent)}
+.row h2,.panel h3{position:relative}
+#toast{background:var(--brand2)}
+footer{background:#0b4f47;color:#cfeee9;border:0;padding:26px 20px}
+
+/* ===== Chat, entrega y pago ===== */
+.chatbox{border:1px solid var(--line);border-radius:18px;margin:22px auto;max-width:820px;background:#fff;box-shadow:0 10px 30px rgba(14,147,132,.1);overflow:hidden}
+#chathead{padding:16px 18px;background:linear-gradient(120deg,#e3f5f2,#fff5ea);border-bottom:1px solid var(--line)}
+.chattop{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.swap{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.swap .it{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px 10px}
+.swap .it img,.swap .it .ph{width:46px;height:46px;border-radius:8px}
+.swap .arrow{font-size:22px;color:var(--brand)}
+.swap .ph span,.offer .ph span,.pick .ph span{display:none}
+.pills{margin-top:10px}.pills .status{margin-right:6px}
+.acts{margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.waitbox,.okbox{padding:9px 14px;border-radius:12px;font-size:13px}
+.waitbox{background:#fff;border:1px dashed var(--brand);color:var(--brand2)}
+.okbox{background:var(--brand);color:#fff}
+.msgs{height:360px;overflow-y:auto;padding:16px;background:#f7fbfa;display:flex;flex-direction:column;gap:8px}
+.bub{max-width:76%;padding:9px 13px;border-radius:16px;font-size:14px;line-height:1.35;word-break:break-word}
+.bub span{display:block;font-size:10px;opacity:.65;margin-top:3px;text-align:right}
+.bub.me{align-self:flex-end;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-bottom-right-radius:4px}
+.bub.th{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px}
+.sysmsg{align-self:center;background:#fff0e1;color:#8a4210;border-radius:999px;font-size:12px;padding:5px 14px;text-align:center}
+.chatform{display:flex;gap:10px;padding:12px;border-top:1px solid var(--line)}
+.chatform input{border-radius:999px;padding:11px 16px}
+.steps{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
+.st{flex:1;min-width:140px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mid);background:#fff}
+.st b{width:26px;height:26px;border-radius:50%;background:var(--soft);display:inline-flex;align-items:center;justify-content:center;color:var(--mid)}
+.st.cur{border-color:var(--brand);color:var(--ink);font-weight:700}.st.cur b{background:var(--brand);color:#fff}
+.st.done{color:var(--brand2)}.st.done b{background:var(--brand2);color:#fff}
+.qrwrap{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:center;border:1px solid var(--line);border-radius:20px;padding:26px;background:#fff;box-shadow:0 10px 30px rgba(14,147,132,.1)}
+@media(max-width:760px){.qrwrap{grid-template-columns:1fr;text-align:center}}
+.qrbox{padding:12px;border:3px solid var(--brand);border-radius:20px;background:#fff;max-width:300px}
+.qrbox svg{display:block;width:100%;height:auto}
+.price{font-size:30px;font-weight:800;color:var(--ink);margin:6px 0}
+.pulse{display:inline-flex;align-items:center;gap:8px;background:#fff0e1;color:#8a4210;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;margin:10px 0}
+.pulse i{width:10px;height:10px;border-radius:50%;background:var(--accent);animation:pl 1.2s infinite}
+@keyframes pl{0%{transform:scale(.6);opacity:.5}50%{transform:scale(1.2);opacity:1}100%{transform:scale(.6);opacity:.5}}
+.bigcheck{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#14b8a6,#0a6b5e);color:#fff;font-size:46px;display:flex;align-items:center;justify-content:center;margin:6px auto 14px;box-shadow:0 8px 20px rgba(14,147,132,.4);animation:pop .5s}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.sum{background:var(--pale);border:1px solid var(--line);border-radius:12px;padding:12px 16px;text-align:left;font-size:14px;margin:10px 0}
+.sum div{margin:3px 0}
+
+/* ===== Páginas informativas ===== */
+footer a{color:#cfeee9;text-decoration:underline}footer a:hover{color:#fff}
+.legal{max-width:860px;margin:26px auto}
+.legal h1{font-size:30px;margin:14px 0 4px}
+.legal h2{font-size:18px;margin:26px 0 8px;color:var(--brand2)}
+.legal p,.legal li{line-height:1.6;font-size:14.5px;margin:8px 0}
+.legal ul{padding-left:22px;margin:8px 0}
+.legal .box2{background:#fff0e1;border:1px solid var(--accent);border-radius:12px;padding:12px 16px;font-size:13.5px;margin:16px 0}
+.howgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin:22px 0}
+.how{border:1px solid var(--line);border-radius:18px;padding:22px;background:#fff;box-shadow:0 6px 18px rgba(14,147,132,.08)}
+.how b.n{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:10px}
+.how h3{font-size:18px;margin-bottom:6px}.how p{margin:0;font-size:14px;line-height:1.5}
+.faq details{border:1px solid var(--line);border-radius:14px;margin:10px 0;background:#fff;padding:0 18px}
+.faq summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";color:var(--brand);font-size:22px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:0 0 16px;line-height:1.6;font-size:14.5px}
+.faq details[open]{border-color:var(--brand);box-shadow:0 4px 14px rgba(14,147,132,.1)}
+</style>
+<script>
+/* Generador de QR (qrcode-generator de Kazuhiko Arase, licencia MIT) */
+(function(){var defs={},cache={};
+defs['./QR8bitByte']=function(module,exports,require){var QRMode = require('./QRMode');
+function QR8bitByte(data) {
+	this.mode = QRMode.MODE_8BIT_BYTE;
+	this.data = data;
+}
+QR8bitByte.prototype = {
+	getLength : function() {
+		return this.data.length;
+	},
+	write : function(buffer) {
+		for (var i = 0; i < this.data.length; i++) {
+			buffer.put(this.data.charCodeAt(i), 8);
+		}
+	}
+};
+module.exports = QR8bitByte;
+};
+defs['./QRBitBuffer']=function(module,exports,require){function QRBitBuffer() {
+	this.buffer = [];
+	this.length = 0;
+}
+QRBitBuffer.prototype = {
+	get : function(index) {
+		var bufIndex = Math.floor(index / 8);
+		return ( (this.buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+	},
+	put : function(num, length) {
+		for (var i = 0; i < length; i++) {
+			this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+		}
+	},
+	getLengthInBits : function() {
+		return this.length;
+	},
+	putBit : function(bit) {
+		var bufIndex = Math.floor(this.length / 8);
+		if (this.buffer.length <= bufIndex) {
+			this.buffer.push(0);
+		}
+		if (bit) {
+			this.buffer[bufIndex] |= (0x80 >>> (this.length % 8) );
+		}
+		this.length++;
+	}
+};
+module.exports = QRBitBuffer;
+};
+defs['./QRErrorCorrectLevel']=function(module,exports,require){module.exports = {
+	L : 1,
+	M : 0,
+	Q : 3,
+	H : 2
+};
+};
+defs['./QRMaskPattern']=function(module,exports,require){module.exports = {
+	PATTERN000 : 0,
+	PATTERN001 : 1,
+	PATTERN010 : 2,
+	PATTERN011 : 3,
+	PATTERN100 : 4,
+	PATTERN101 : 5,
+	PATTERN110 : 6,
+	PATTERN111 : 7
+};
+};
+defs['./QRMath']=function(module,exports,require){var QRMath = {
+	glog : function(n) {
+		if (n < 1) {
+			throw new Error("glog(" + n + ")");
+		}
+		return QRMath.LOG_TABLE[n];
+	},
+	gexp : function(n) {
+		while (n < 0) {
+			n += 255;
+		}
+		while (n >= 256) {
+			n -= 255;
+		}
+		return QRMath.EXP_TABLE[n];
+	},
+	EXP_TABLE : new Array(256),
+	LOG_TABLE : new Array(256)
+};
+for (var i = 0; i < 8; i++) {
+	QRMath.EXP_TABLE[i] = 1 << i;
+}
+for (var i = 8; i < 256; i++) {
+	QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4]
+		^ QRMath.EXP_TABLE[i - 5]
+		^ QRMath.EXP_TABLE[i - 6]
+		^ QRMath.EXP_TABLE[i - 8];
+}
+for (var i = 0; i < 255; i++) {
+	QRMath.LOG_TABLE[QRMath.EXP_TABLE[i] ] = i;
+}
+module.exports = QRMath;
+};
+defs['./QRMode']=function(module,exports,require){module.exports = {
+    MODE_NUMBER :       1 << 0,
+    MODE_ALPHA_NUM :    1 << 1,
+    MODE_8BIT_BYTE :    1 << 2,
+    MODE_KANJI :        1 << 3
+};
+};
+defs['./QRPolynomial']=function(module,exports,require){var QRMath = require('./QRMath');
+function QRPolynomial(num, shift) {
+	if (num.length === undefined) {
+		throw new Error(num.length + "/" + shift);
+	}
+	var offset = 0;
+	while (offset < num.length && num[offset] === 0) {
+		offset++;
+	}
+	this.num = new Array(num.length - offset + shift);
+	for (var i = 0; i < num.length - offset; i++) {
+		this.num[i] = num[i + offset];
+	}
+}
+QRPolynomial.prototype = {
+	get : function(index) {
+		return this.num[index];
+	},
+	getLength : function() {
+		return this.num.length;
+	},
+	multiply : function(e) {
+		var num = new Array(this.getLength() + e.getLength() - 1);
+		for (var i = 0; i < this.getLength(); i++) {
+			for (var j = 0; j < e.getLength(); j++) {
+				num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i) ) + QRMath.glog(e.get(j) ) );
+			}
+		}
+		return new QRPolynomial(num, 0);
+	},
+	mod : function(e) {
+		if (this.getLength() - e.getLength() < 0) {
+			return this;
+		}
+		var ratio = QRMath.glog(this.get(0) ) - QRMath.glog(e.get(0) );
+		var num = new Array(this.getLength() );
+		for (var i = 0; i < this.getLength(); i++) {
+			num[i] = this.get(i);
+		}
+		for (var x = 0; x < e.getLength(); x++) {
+			num[x] ^= QRMath.gexp(QRMath.glog(e.get(x) ) + ratio);
+		}
+		return new QRPolynomial(num, 0).mod(e);
+	}
+};
+module.exports = QRPolynomial;
+};
+defs['./QRRSBlock']=function(module,exports,require){var QRErrorCorrectLevel = require('./QRErrorCorrectLevel');
+function QRRSBlock(totalCount, dataCount) {
+	this.totalCount = totalCount;
+	this.dataCount  = dataCount;
+}
+QRRSBlock.RS_BLOCK_TABLE = [
+	[1, 26, 19],
+	[1, 26, 16],
+	[1, 26, 13],
+	[1, 26, 9],
+	[1, 44, 34],
+	[1, 44, 28],
+	[1, 44, 22],
+	[1, 44, 16],
+	[1, 70, 55],
+	[1, 70, 44],
+	[2, 35, 17],
+	[2, 35, 13],
+	[1, 100, 80],
+	[2, 50, 32],
+	[2, 50, 24],
+	[4, 25, 9],
+	[1, 134, 108],
+	[2, 67, 43],
+	[2, 33, 15, 2, 34, 16],
+	[2, 33, 11, 2, 34, 12],
+	[2, 86, 68],
+	[4, 43, 27],
+	[4, 43, 19],
+	[4, 43, 15],
+	[2, 98, 78],
+	[4, 49, 31],
+	[2, 32, 14, 4, 33, 15],
+	[4, 39, 13, 1, 40, 14],
+	[2, 121, 97],
+	[2, 60, 38, 2, 61, 39],
+	[4, 40, 18, 2, 41, 19],
+	[4, 40, 14, 2, 41, 15],
+	[2, 146, 116],
+	[3, 58, 36, 2, 59, 37],
+	[4, 36, 16, 4, 37, 17],
+	[4, 36, 12, 4, 37, 13],
+	[2, 86, 68, 2, 87, 69],
+	[4, 69, 43, 1, 70, 44],
+	[6, 43, 19, 2, 44, 20],
+	[6, 43, 15, 2, 44, 16],
+	[4, 101, 81],
+	[1, 80, 50, 4, 81, 51],
+	[4, 50, 22, 4, 51, 23],
+	[3, 36, 12, 8, 37, 13],
+	[2, 116, 92, 2, 117, 93],
+	[6, 58, 36, 2, 59, 37],
+	[4, 46, 20, 6, 47, 21],
+	[7, 42, 14, 4, 43, 15],
+	[4, 133, 107],
+	[8, 59, 37, 1, 60, 38],
+	[8, 44, 20, 4, 45, 21],
+	[12, 33, 11, 4, 34, 12],
+	[3, 145, 115, 1, 146, 116],
+	[4, 64, 40, 5, 65, 41],
+	[11, 36, 16, 5, 37, 17],
+	[11, 36, 12, 5, 37, 13],
+	[5, 109, 87, 1, 110, 88],
+	[5, 65, 41, 5, 66, 42],
+	[5, 54, 24, 7, 55, 25],
+	[11, 36, 12],
+	[5, 122, 98, 1, 123, 99],
+	[7, 73, 45, 3, 74, 46],
+	[15, 43, 19, 2, 44, 20],
+	[3, 45, 15, 13, 46, 16],
+	[1, 135, 107, 5, 136, 108],
+	[10, 74, 46, 1, 75, 47],
+	[1, 50, 22, 15, 51, 23],
+	[2, 42, 14, 17, 43, 15],
+	[5, 150, 120, 1, 151, 121],
+	[9, 69, 43, 4, 70, 44],
+	[17, 50, 22, 1, 51, 23],
+	[2, 42, 14, 19, 43, 15],
+	[3, 141, 113, 4, 142, 114],
+	[3, 70, 44, 11, 71, 45],
+	[17, 47, 21, 4, 48, 22],
+	[9, 39, 13, 16, 40, 14],
+	[3, 135, 107, 5, 136, 108],
+	[3, 67, 41, 13, 68, 42],
+	[15, 54, 24, 5, 55, 25],
+	[15, 43, 15, 10, 44, 16],
+	[4, 144, 116, 4, 145, 117],
+	[17, 68, 42],
+	[17, 50, 22, 6, 51, 23],
+	[19, 46, 16, 6, 47, 17],
+	[2, 139, 111, 7, 140, 112],
+	[17, 74, 46],
+	[7, 54, 24, 16, 55, 25],
+	[34, 37, 13],
+	[4, 151, 121, 5, 152, 122],
+	[4, 75, 47, 14, 76, 48],
+	[11, 54, 24, 14, 55, 25],
+	[16, 45, 15, 14, 46, 16],
+	[6, 147, 117, 4, 148, 118],
+	[6, 73, 45, 14, 74, 46],
+	[11, 54, 24, 16, 55, 25],
+	[30, 46, 16, 2, 47, 17],
+	[8, 132, 106, 4, 133, 107],
+	[8, 75, 47, 13, 76, 48],
+	[7, 54, 24, 22, 55, 25],
+	[22, 45, 15, 13, 46, 16],
+	[10, 142, 114, 2, 143, 115],
+	[19, 74, 46, 4, 75, 47],
+	[28, 50, 22, 6, 51, 23],
+	[33, 46, 16, 4, 47, 17],
+	[8, 152, 122, 4, 153, 123],
+	[22, 73, 45, 3, 74, 46],
+	[8, 53, 23, 26, 54, 24],
+	[12, 45, 15, 28, 46, 16],
+	[3, 147, 117, 10, 148, 118],
+	[3, 73, 45, 23, 74, 46],
+	[4, 54, 24, 31, 55, 25],
+	[11, 45, 15, 31, 46, 16],
+	[7, 146, 116, 7, 147, 117],
+	[21, 73, 45, 7, 74, 46],
+	[1, 53, 23, 37, 54, 24],
+	[19, 45, 15, 26, 46, 16],
+	[5, 145, 115, 10, 146, 116],
+	[19, 75, 47, 10, 76, 48],
+	[15, 54, 24, 25, 55, 25],
+	[23, 45, 15, 25, 46, 16],
+	[13, 145, 115, 3, 146, 116],
+	[2, 74, 46, 29, 75, 47],
+	[42, 54, 24, 1, 55, 25],
+	[23, 45, 15, 28, 46, 16],
+	[17, 145, 115],
+	[10, 74, 46, 23, 75, 47],
+	[10, 54, 24, 35, 55, 25],
+	[19, 45, 15, 35, 46, 16],
+	[17, 145, 115, 1, 146, 116],
+	[14, 74, 46, 21, 75, 47],
+	[29, 54, 24, 19, 55, 25],
+	[11, 45, 15, 46, 46, 16],
+	[13, 145, 115, 6, 146, 116],
+	[14, 74, 46, 23, 75, 47],
+	[44, 54, 24, 7, 55, 25],
+	[59, 46, 16, 1, 47, 17],
+	[12, 151, 121, 7, 152, 122],
+	[12, 75, 47, 26, 76, 48],
+	[39, 54, 24, 14, 55, 25],
+	[22, 45, 15, 41, 46, 16],
+	[6, 151, 121, 14, 152, 122],
+	[6, 75, 47, 34, 76, 48],
+	[46, 54, 24, 10, 55, 25],
+	[2, 45, 15, 64, 46, 16],
+	[17, 152, 122, 4, 153, 123],
+	[29, 74, 46, 14, 75, 47],
+	[49, 54, 24, 10, 55, 25],
+	[24, 45, 15, 46, 46, 16],
+	[4, 152, 122, 18, 153, 123],
+	[13, 74, 46, 32, 75, 47],
+	[48, 54, 24, 14, 55, 25],
+	[42, 45, 15, 32, 46, 16],
+	[20, 147, 117, 4, 148, 118],
+	[40, 75, 47, 7, 76, 48],
+	[43, 54, 24, 22, 55, 25],
+	[10, 45, 15, 67, 46, 16],
+	[19, 148, 118, 6, 149, 119],
+	[18, 75, 47, 31, 76, 48],
+	[34, 54, 24, 34, 55, 25],
+	[20, 45, 15, 61, 46, 16]
+];
+QRRSBlock.getRSBlocks = function(typeNumber, errorCorrectLevel) {
+	var rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
+	if (rsBlock === undefined) {
+		throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + errorCorrectLevel);
+	}
+	var length = rsBlock.length / 3;
+	var list = [];
+	for (var i = 0; i < length; i++) {
+		var count = rsBlock[i * 3 + 0];
+		var totalCount = rsBlock[i * 3 + 1];
+		var dataCount  = rsBlock[i * 3 + 2];
+		for (var j = 0; j < count; j++) {
+			list.push(new QRRSBlock(totalCount, dataCount) );	
+		}
+	}
+	return list;
+};
+QRRSBlock.getRsBlockTable = function(typeNumber, errorCorrectLevel) {
+	switch(errorCorrectLevel) {
+	case QRErrorCorrectLevel.L :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+	case QRErrorCorrectLevel.M :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+	case QRErrorCorrectLevel.Q :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+	case QRErrorCorrectLevel.H :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+	default :
+		return undefined;
+	}
+};
+module.exports = QRRSBlock;
+};
+defs['./QRUtil']=function(module,exports,require){var QRMode = require('./QRMode');
+var QRPolynomial = require('./QRPolynomial');
+var QRMath = require('./QRMath');
+var QRMaskPattern = require('./QRMaskPattern');
+var QRUtil = {
+    PATTERN_POSITION_TABLE : [
+        [],
+        [6, 18],
+        [6, 22],
+        [6, 26],
+        [6, 30],
+        [6, 34],
+        [6, 22, 38],
+        [6, 24, 42],
+        [6, 26, 46],
+        [6, 28, 50],
+        [6, 30, 54],        
+        [6, 32, 58],
+        [6, 34, 62],
+        [6, 26, 46, 66],
+        [6, 26, 48, 70],
+        [6, 26, 50, 74],
+        [6, 30, 54, 78],
+        [6, 30, 56, 82],
+        [6, 30, 58, 86],
+        [6, 34, 62, 90],
+        [6, 28, 50, 72, 94],
+        [6, 26, 50, 74, 98],
+        [6, 30, 54, 78, 102],
+        [6, 28, 54, 80, 106],
+        [6, 32, 58, 84, 110],
+        [6, 30, 58, 86, 114],
+        [6, 34, 62, 90, 118],
+        [6, 26, 50, 74, 98, 122],
+        [6, 30, 54, 78, 102, 126],
+        [6, 26, 52, 78, 104, 130],
+        [6, 30, 56, 82, 108, 134],
+        [6, 34, 60, 86, 112, 138],
+        [6, 30, 58, 86, 114, 142],
+        [6, 34, 62, 90, 118, 146],
+        [6, 30, 54, 78, 102, 126, 150],
+        [6, 24, 50, 76, 102, 128, 154],
+        [6, 28, 54, 80, 106, 132, 158],
+        [6, 32, 58, 84, 110, 136, 162],
+        [6, 26, 54, 82, 110, 138, 166],
+        [6, 30, 58, 86, 114, 142, 170]
+    ],
+    G15 : (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0),
+    G18 : (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0),
+    G15_MASK : (1 << 14) | (1 << 12) | (1 << 10)    | (1 << 4) | (1 << 1),
+    getBCHTypeInfo : function(data) {
+        var d = data << 10;
+        while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) {
+            d ^= (QRUtil.G15 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) ) );    
+        }
+        return ( (data << 10) | d) ^ QRUtil.G15_MASK;
+    },
+    getBCHTypeNumber : function(data) {
+        var d = data << 12;
+        while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) {
+            d ^= (QRUtil.G18 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) ) );    
+        }
+        return (data << 12) | d;
+    },
+    getBCHDigit : function(data) {
+        var digit = 0;
+        while (data !== 0) {
+            digit++;
+            data >>>= 1;
+        }
+        return digit;
+    },
+    getPatternPosition : function(typeNumber) {
+        return QRUtil.PATTERN_POSITION_TABLE[typeNumber - 1];
+    },
+    getMask : function(maskPattern, i, j) {
+        switch (maskPattern) {
+        case QRMaskPattern.PATTERN000 : return (i + j) % 2 === 0;
+        case QRMaskPattern.PATTERN001 : return i % 2 === 0;
+        case QRMaskPattern.PATTERN010 : return j % 3 === 0;
+        case QRMaskPattern.PATTERN011 : return (i + j) % 3 === 0;
+        case QRMaskPattern.PATTERN100 : return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 === 0;
+        case QRMaskPattern.PATTERN101 : return (i * j) % 2 + (i * j) % 3 === 0;
+        case QRMaskPattern.PATTERN110 : return ( (i * j) % 2 + (i * j) % 3) % 2 === 0;
+        case QRMaskPattern.PATTERN111 : return ( (i * j) % 3 + (i + j) % 2) % 2 === 0;
+        default :
+            throw new Error("bad maskPattern:" + maskPattern);
+        }
+    },
+    getErrorCorrectPolynomial : function(errorCorrectLength) {
+        var a = new QRPolynomial([1], 0);
+        for (var i = 0; i < errorCorrectLength; i++) {
+            a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0) );
+        }
+        return a;
+    },
+    getLengthInBits : function(mode, type) {
+        if (1 <= type && type < 10) {
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 10;
+            case QRMode.MODE_ALPHA_NUM  : return 9;
+            case QRMode.MODE_8BIT_BYTE  : return 8;
+            case QRMode.MODE_KANJI      : return 8;
+            default :
+                throw new Error("mode:" + mode);
+            }
+        } else if (type < 27) {
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 12;
+            case QRMode.MODE_ALPHA_NUM  : return 11;
+            case QRMode.MODE_8BIT_BYTE  : return 16;
+            case QRMode.MODE_KANJI      : return 10;
+            default :
+                throw new Error("mode:" + mode);
+            }
+        } else if (type < 41) {
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 14;
+            case QRMode.MODE_ALPHA_NUM  : return 13;
+            case QRMode.MODE_8BIT_BYTE  : return 16;
+            case QRMode.MODE_KANJI      : return 12;
+            default :
+                throw new Error("mode:" + mode);
+            }
+        } else {
+            throw new Error("type:" + type);
+        }
+    },
+    getLostPoint : function(qrCode) {
+        var moduleCount = qrCode.getModuleCount();
+        var lostPoint = 0;
+        var row = 0; 
+        var col = 0;
+        for (row = 0; row < moduleCount; row++) {
+            for (col = 0; col < moduleCount; col++) {
+                var sameCount = 0;
+                var dark = qrCode.isDark(row, col);
+                for (var r = -1; r <= 1; r++) {
+                    if (row + r < 0 || moduleCount <= row + r) {
+                        continue;
+                    }
+                    for (var c = -1; c <= 1; c++) {
+                        if (col + c < 0 || moduleCount <= col + c) {
+                            continue;
+                        }
+                        if (r === 0 && c === 0) {
+                            continue;
+                        }
+                        if (dark === qrCode.isDark(row + r, col + c) ) {
+                            sameCount++;
+                        }
+                    }
+                }
+                if (sameCount > 5) {
+                    lostPoint += (3 + sameCount - 5);
+                }
+            }
+        }
+        for (row = 0; row < moduleCount - 1; row++) {
+            for (col = 0; col < moduleCount - 1; col++) {
+                var count = 0;
+                if (qrCode.isDark(row,     col    ) ) count++;
+                if (qrCode.isDark(row + 1, col    ) ) count++;
+                if (qrCode.isDark(row,     col + 1) ) count++;
+                if (qrCode.isDark(row + 1, col + 1) ) count++;
+                if (count === 0 || count === 4) {
+                    lostPoint += 3;
+                }
+            }
+        }
+        for (row = 0; row < moduleCount; row++) {
+            for (col = 0; col < moduleCount - 6; col++) {
+                if (qrCode.isDark(row, col) && 
+                        !qrCode.isDark(row, col + 1) && 
+                         qrCode.isDark(row, col + 2) && 
+                         qrCode.isDark(row, col + 3) && 
+                         qrCode.isDark(row, col + 4) && 
+                        !qrCode.isDark(row, col + 5) && 
+                         qrCode.isDark(row, col + 6) ) {
+                    lostPoint += 40;
+                }
+            }
+        }
+        for (col = 0; col < moduleCount; col++) {
+            for (row = 0; row < moduleCount - 6; row++) {
+                if (qrCode.isDark(row, col) &&
+                        !qrCode.isDark(row + 1, col) &&
+                         qrCode.isDark(row + 2, col) &&
+                         qrCode.isDark(row + 3, col) &&
+                         qrCode.isDark(row + 4, col) &&
+                        !qrCode.isDark(row + 5, col) &&
+                         qrCode.isDark(row + 6, col) ) {
+                    lostPoint += 40;
+                }
+            }
+        }
+        var darkCount = 0;
+        for (col = 0; col < moduleCount; col++) {
+            for (row = 0; row < moduleCount; row++) {
+                if (qrCode.isDark(row, col) ) {
+                    darkCount++;
+                }
+            }
+        }
+        var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+        lostPoint += ratio * 10;
+        return lostPoint;       
+    }
+};
+module.exports = QRUtil;
+};
+defs['./index']=function(module,exports,require){
+var QR8bitByte = require('./QR8bitByte');
+var QRUtil = require('./QRUtil');
+var QRPolynomial = require('./QRPolynomial');
+var QRRSBlock = require('./QRRSBlock');
+var QRBitBuffer = require('./QRBitBuffer');
+function QRCode(typeNumber, errorCorrectLevel) {
+	this.typeNumber = typeNumber;
+	this.errorCorrectLevel = errorCorrectLevel;
+	this.modules = null;
+	this.moduleCount = 0;
+	this.dataCache = null;
+	this.dataList = [];
+}
+QRCode.prototype = {
+	addData : function(data) {
+		var newData = new QR8bitByte(data);
+		this.dataList.push(newData);
+		this.dataCache = null;
+	},
+	isDark : function(row, col) {
+		if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
+			throw new Error(row + "," + col);
+		}
+		return this.modules[row][col];
+	},
+	getModuleCount : function() {
+		return this.moduleCount;
+	},
+	make : function() {
+		if (this.typeNumber < 1 ){
+			var typeNumber = 1;
+			for (typeNumber = 1; typeNumber < 40; typeNumber++) {
+				var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
+				var buffer = new QRBitBuffer();
+				var totalDataCount = 0;
+				for (var i = 0; i < rsBlocks.length; i++) {
+					totalDataCount += rsBlocks[i].dataCount;
+				}
+				for (var x = 0; x < this.dataList.length; x++) {
+					var data = this.dataList[x];
+					buffer.put(data.mode, 4);
+					buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+					data.write(buffer);
+				}
+				if (buffer.getLengthInBits() <= totalDataCount * 8)
+					break;
+			}
+			this.typeNumber = typeNumber;
+		}
+		this.makeImpl(false, this.getBestMaskPattern() );
+	},
+	makeImpl : function(test, maskPattern) {
+		this.moduleCount = this.typeNumber * 4 + 17;
+		this.modules = new Array(this.moduleCount);
+		for (var row = 0; row < this.moduleCount; row++) {
+			this.modules[row] = new Array(this.moduleCount);
+			for (var col = 0; col < this.moduleCount; col++) {
+				this.modules[row][col] = null;//(col + row) % 3;
+			}
+		}
+		this.setupPositionProbePattern(0, 0);
+		this.setupPositionProbePattern(this.moduleCount - 7, 0);
+		this.setupPositionProbePattern(0, this.moduleCount - 7);
+		this.setupPositionAdjustPattern();
+		this.setupTimingPattern();
+		this.setupTypeInfo(test, maskPattern);
+		if (this.typeNumber >= 7) {
+			this.setupTypeNumber(test);
+		}
+		if (this.dataCache === null) {
+			this.dataCache = QRCode.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
+		}
+		this.mapData(this.dataCache, maskPattern);
+	},
+	setupPositionProbePattern : function(row, col)  {
+		for (var r = -1; r <= 7; r++) {
+			if (row + r <= -1 || this.moduleCount <= row + r) continue;
+			for (var c = -1; c <= 7; c++) {
+				if (col + c <= -1 || this.moduleCount <= col + c) continue;
+				if ( (0 <= r && r <= 6 && (c === 0 || c === 6) ) || 
+                     (0 <= c && c <= 6 && (r === 0 || r === 6) ) || 
+                     (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+					this.modules[row + r][col + c] = true;
+				} else {
+					this.modules[row + r][col + c] = false;
+				}
+			}		
+		}		
+	},
+	getBestMaskPattern : function() {
+		var minLostPoint = 0;
+		var pattern = 0;
+		for (var i = 0; i < 8; i++) {
+			this.makeImpl(true, i);
+			var lostPoint = QRUtil.getLostPoint(this);
+			if (i === 0 || minLostPoint >  lostPoint) {
+				minLostPoint = lostPoint;
+				pattern = i;
+			}
+		}
+		return pattern;
+	},
+	createMovieClip : function(target_mc, instance_name, depth) {
+		var qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
+		var cs = 1;
+		this.make();
+		for (var row = 0; row < this.modules.length; row++) {
+			var y = row * cs;
+			for (var col = 0; col < this.modules[row].length; col++) {
+				var x = col * cs;
+				var dark = this.modules[row][col];
+				if (dark) {
+					qr_mc.beginFill(0, 100);
+					qr_mc.moveTo(x, y);
+					qr_mc.lineTo(x + cs, y);
+					qr_mc.lineTo(x + cs, y + cs);
+					qr_mc.lineTo(x, y + cs);
+					qr_mc.endFill();
+				}
+			}
+		}
+		return qr_mc;
+	},
+	setupTimingPattern : function() {
+		for (var r = 8; r < this.moduleCount - 8; r++) {
+			if (this.modules[r][6] !== null) {
+				continue;
+			}
+			this.modules[r][6] = (r % 2 === 0);
+		}
+		for (var c = 8; c < this.moduleCount - 8; c++) {
+			if (this.modules[6][c] !== null) {
+				continue;
+			}
+			this.modules[6][c] = (c % 2 === 0);
+		}
+	},
+	setupPositionAdjustPattern : function() {
+		var pos = QRUtil.getPatternPosition(this.typeNumber);
+		for (var i = 0; i < pos.length; i++) {
+			for (var j = 0; j < pos.length; j++) {
+				var row = pos[i];
+				var col = pos[j];
+				if (this.modules[row][col] !== null) {
+					continue;
+				}
+				for (var r = -2; r <= 2; r++) {
+					for (var c = -2; c <= 2; c++) {
+						if (Math.abs(r) === 2 || 
+                            Math.abs(c) === 2 ||
+                            (r === 0 && c === 0) ) {
+							this.modules[row + r][col + c] = true;
+						} else {
+							this.modules[row + r][col + c] = false;
+						}
+					}
+				}
+			}
+		}
+	},
+	setupTypeNumber : function(test) {
+		var bits = QRUtil.getBCHTypeNumber(this.typeNumber);
+        var mod;
+		for (var i = 0; i < 18; i++) {
+			mod = (!test && ( (bits >> i) & 1) === 1);
+			this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
+		}
+		for (var x = 0; x < 18; x++) {
+			mod = (!test && ( (bits >> x) & 1) === 1);
+			this.modules[x % 3 + this.moduleCount - 8 - 3][Math.floor(x / 3)] = mod;
+		}
+	},
+	setupTypeInfo : function(test, maskPattern) {
+		var data = (this.errorCorrectLevel << 3) | maskPattern;
+		var bits = QRUtil.getBCHTypeInfo(data);
+        var mod;
+		for (var v = 0; v < 15; v++) {
+			mod = (!test && ( (bits >> v) & 1) === 1);
+			if (v < 6) {
+				this.modules[v][8] = mod;
+			} else if (v < 8) {
+				this.modules[v + 1][8] = mod;
+			} else {
+				this.modules[this.moduleCount - 15 + v][8] = mod;
+			}
+		}
+		for (var h = 0; h < 15; h++) {
+			mod = (!test && ( (bits >> h) & 1) === 1);
+			if (h < 8) {
+				this.modules[8][this.moduleCount - h - 1] = mod;
+			} else if (h < 9) {
+				this.modules[8][15 - h - 1 + 1] = mod;
+			} else {
+				this.modules[8][15 - h - 1] = mod;
+			}
+		}
+		this.modules[this.moduleCount - 8][8] = (!test);
+	},
+	mapData : function(data, maskPattern) {
+		var inc = -1;
+		var row = this.moduleCount - 1;
+		var bitIndex = 7;
+		var byteIndex = 0;
+		for (var col = this.moduleCount - 1; col > 0; col -= 2) {
+			if (col === 6) col--;
+			while (true) {
+				for (var c = 0; c < 2; c++) {
+					if (this.modules[row][col - c] === null) {
+						var dark = false;
+						if (byteIndex < data.length) {
+							dark = ( ( (data[byteIndex] >>> bitIndex) & 1) === 1);
+						}
+						var mask = QRUtil.getMask(maskPattern, row, col - c);
+						if (mask) {
+							dark = !dark;
+						}
+						this.modules[row][col - c] = dark;
+						bitIndex--;
+						if (bitIndex === -1) {
+							byteIndex++;
+							bitIndex = 7;
+						}
+					}
+				}
+				row += inc;
+				if (row < 0 || this.moduleCount <= row) {
+					row -= inc;
+					inc = -inc;
+					break;
+				}
+			}
+		}
+	}
+};
+QRCode.PAD0 = 0xEC;
+QRCode.PAD1 = 0x11;
+QRCode.createData = function(typeNumber, errorCorrectLevel, dataList) {
+	var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+	var buffer = new QRBitBuffer();
+	for (var i = 0; i < dataList.length; i++) {
+		var data = dataList[i];
+		buffer.put(data.mode, 4);
+		buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+		data.write(buffer);
+	}
+	var totalDataCount = 0;
+	for (var x = 0; x < rsBlocks.length; x++) {
+		totalDataCount += rsBlocks[x].dataCount;
+	}
+	if (buffer.getLengthInBits() > totalDataCount * 8) {
+		throw new Error("code length overflow. (" + 
+            buffer.getLengthInBits() + 
+            ">" +  
+            totalDataCount * 8 + 
+            ")");
+	}
+	if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+		buffer.put(0, 4);
+	}
+	while (buffer.getLengthInBits() % 8 !== 0) {
+		buffer.putBit(false);
+	}
+	while (true) {
+		if (buffer.getLengthInBits() >= totalDataCount * 8) {
+			break;
+		}
+		buffer.put(QRCode.PAD0, 8);
+		if (buffer.getLengthInBits() >= totalDataCount * 8) {
+			break;
+		}
+		buffer.put(QRCode.PAD1, 8);
+	}
+	return QRCode.createBytes(buffer, rsBlocks);
+};
+QRCode.createBytes = function(buffer, rsBlocks) {
+	var offset = 0;
+	var maxDcCount = 0;
+	var maxEcCount = 0;
+	var dcdata = new Array(rsBlocks.length);
+	var ecdata = new Array(rsBlocks.length);
+	for (var r = 0; r < rsBlocks.length; r++) {
+		var dcCount = rsBlocks[r].dataCount;
+		var ecCount = rsBlocks[r].totalCount - dcCount;
+		maxDcCount = Math.max(maxDcCount, dcCount);
+		maxEcCount = Math.max(maxEcCount, ecCount);
+		dcdata[r] = new Array(dcCount);
+		for (var i = 0; i < dcdata[r].length; i++) {
+			dcdata[r][i] = 0xff & buffer.buffer[i + offset];
+		}
+		offset += dcCount;
+		var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+		var rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
+		var modPoly = rawPoly.mod(rsPoly);
+		ecdata[r] = new Array(rsPoly.getLength() - 1);
+		for (var x = 0; x < ecdata[r].length; x++) {
+            var modIndex = x + modPoly.getLength() - ecdata[r].length;
+			ecdata[r][x] = (modIndex >= 0)? modPoly.get(modIndex) : 0;
+		}
+	}
+	var totalCodeCount = 0;
+	for (var y = 0; y < rsBlocks.length; y++) {
+		totalCodeCount += rsBlocks[y].totalCount;
+	}
+	var data = new Array(totalCodeCount);
+	var index = 0;
+	for (var z = 0; z < maxDcCount; z++) {
+		for (var s = 0; s < rsBlocks.length; s++) {
+			if (z < dcdata[s].length) {
+				data[index++] = dcdata[s][z];
+			}
+		}
+	}
+	for (var xx = 0; xx < maxEcCount; xx++) {
+		for (var t = 0; t < rsBlocks.length; t++) {
+			if (xx < ecdata[t].length) {
+				data[index++] = ecdata[t][xx];
+			}
+		}
+	}
+	return data;
+};
+module.exports = QRCode;
+};
+function req(n){n=n.replace(/\.js$/,'');if(cache[n])return cache[n].exports;var m=cache[n]={exports:{}};defs[n](m,m.exports,req);return m.exports;}
+window.__QR={QRCode:req('./index'),QRErrorCorrectLevel:req('./QRErrorCorrectLevel')};})();
+</script>
+</head>
+<body>
+<header><div class="nav" id="nav"></div></header>
+<main class="wrap" id="app"></main>
+<footer id="foot"></footer>
+<div id="modal"></div>
+<div id="toast"></div>
+
+<script type="module">
+/* =====================================================================
+   CONFIGURACIÓN DE ALMACENAMIENTO
+   - Sin configurar (null): "modo demo", los datos se guardan SOLO en el
+     navegador de cada persona (localStorage).
+   - Para que TODOS los usuarios vean lo que suben los demás, pega aquí la
+     configuración de tu proyecto Firebase (ver README.md).
+   ===================================================================== */
+const FIREBASE_CONFIG = null;
+/* Ejemplo:
+const FIREBASE_CONFIG = {
+  apiKey: "...", authDomain: "...", projectId: "...",
+  storageBucket: "...", messagingSenderId: "...", appId: "..."
+};
+*/
+
+/* Datos del titular de la plataforma (se muestran en Términos y Política de privacidad).
+   Reemplaza los textos entre corchetes por los datos reales antes de publicar. */
+const LEGAL = {
+  titular: '[Nombre o razón social del titular de TruequeFacil]',
+  nit: '[NIT o cédula del titular]',
+  correo: '[correo-de-contacto@tudominio.com]',
+  ciudad: 'Bogotá D.C.',
+  fecha: '30 de octubre de 2026'
+};
+
+const CATS = ['Tecnología','Ropa','Hogar','Libros','Deportes','Juguetes','Música','Mascotas','Otros'];
+const CONDS = ['Nuevo','Como nuevo','Usado'];
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+/* ---------- Capa de datos ---------- */
+async function makeStore() {
+  if (FIREBASE_CONFIG) {
+    try {
+      const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+      const fs = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+      const db = fs.getFirestore(initializeApp(FIREBASE_CONFIG));
+      return {
+        mode: 'nube',
+        async all(c, f, v) { const ref = fs.collection(db, c); const s = await fs.getDocs(f ? fs.query(ref, fs.where(f, '==', v)) : ref); return s.docs.map(d => ({ ...d.data(), id: d.id })); },
+        async one(c, id) { const d = await fs.getDoc(fs.doc(db, c, id)); return d.exists() ? { ...d.data(), id: d.id } : null; },
+        async add(c, o) { const id = uid(); await fs.setDoc(fs.doc(db, c, id), o); return { ...o, id }; },
+        async set(c, id, p) { await fs.updateDoc(fs.doc(db, c, id), p); },
+        async del(c, id) { await fs.deleteDoc(fs.doc(db, c, id)); }
+      };
+    } catch (e) { console.error('Firebase no disponible, usando modo demo', e); }
+  }
+  const rd = c => JSON.parse(localStorage.getItem('tradeo_' + c) || '[]');
+  const wr = (c, a) => localStorage.setItem('tradeo_' + c, JSON.stringify(a));
+  return {
+    mode: 'demo',
+    async all(c, f, v) { return rd(c).filter(x => !f || x[f] === v); },
+    async one(c, id) { return rd(c).find(x => x.id === id) || null; },
+    async add(c, o) { const n = { ...o, id: uid() }; const a = rd(c); a.push(n); wr(c, a); return n; },
+    async set(c, id, p) { wr(c, rd(c).map(x => x.id === id ? { ...x, ...p } : x)); },
+    async del(c, id) { wr(c, rd(c).filter(x => x.id !== id)); }
+  };
+}
+const Store = await makeStore();
+if (Store.mode === 'demo') console.warn('TruequeFacil: Firebase no está configurado; los datos solo se guardan en este navegador (ver README).');
+
+async function sha(t) {
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t));
+  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+/* ---------- Utilidades ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const ago = t => { const m = Math.floor((Date.now() - t) / 60000); if (m < 1) return 'hace un momento'; if (m < 60) return `hace ${m} min`; const h = Math.floor(m / 60); if (h < 24) return `hace ${h} h`; const d = Math.floor(h / 24); return `hace ${d} ${d === 1 ? 'día' : 'días'}`; };
+function toast(t) { const e = $('#toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.remove('show'), 2800); }
+function openModal(html) { $('#modal').innerHTML = `<div class="modal"><span class="close" data-a="close">✕</span>${html}</div>`; $('#modal').classList.add('open'); }
+function closeModal() { $('#modal').classList.remove('open'); $('#modal').innerHTML = ''; }
+function compress(file) {
+  return new Promise((ok, no) => {
+    const r = new FileReader();
+    r.onerror = no;
+    r.onload = () => {
+      const im = new Image(); im.onerror = no;
+      im.onload = () => {
+        let k = Math.min(1, 1000 / Math.max(im.width, im.height)), q = 0.8, out;
+        const c = document.createElement('canvas');
+        for (let n = 0; n < 8; n++) {            // reduce hasta que la foto pese poco (la base de datos limita el tamaño)
+          c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+          const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height);
+          out = c.toDataURL('image/jpeg', q);
+          if (out.length < 200000) break;
+          q = Math.max(0.5, q - 0.08); k *= 0.85;
+        }
+        ok(out);
+      };
+      im.src = r.result;
+    };
+    r.readAsDataURL(file);
+  });
+}
+
+/* ---------- Estado ---------- */
+let D = { users: [], items: [], offers: [] };
+let me = null;
+let pending = [];            // fotos del formulario de subida
+let flt = { q: '', cats: [], conds: [], city: '', sort: 'new' };
+
+async function load() {
+  const [users, items, offers] = await Promise.all([Store.all('users'), Store.all('items'), Store.all('offers')]);
+  D = { users, items, offers };
+  const sid = localStorage.getItem('tradeo_session');
+  me = D.users.find(u => u.id === sid) || null;
+  if (!me && sid) localStorage.removeItem('tradeo_session');
+}
+const user = id => D.users.find(u => u.id === id);
+const item = id => D.items.find(i => i.id === id);
+const avail = () => D.items.filter(i => i.status !== 'intercambiado').sort((a, b) => b.createdAt - a.createdAt);
+const initial = u => esc((u?.username || '?')[0].toUpperCase());
+
+/* ---------- Componentes ---------- */
+function img(i, cls = '') {
+  return i?.images?.length ? `<img class="${cls}" src="${i.images[0]}" alt="${esc(i.title)}">` : `<div class="ph ${cls}"><span>IMAGEN</span></div>`;
+}
+function card(i) {
+  const o = user(i.userId);
+  return `<a class="card" href="#/item/${i.id}"><div style="position:relative">${img(i)}${i.status === 'intercambiado' ? '<span class="sold">Intercambiado</span>' : ''}</div>
+  <h3>${esc(i.title)}</h3><div class="meta">${esc(i.category)} · ${esc(i.city)}${o ? ' · @' + esc(o.username) : ''}</div>
+  <div class="busca">Busca: ${esc(i.wantTitle)}</div></a>`;
+}
+const LOGO = `<svg width="42" height="42" viewBox="0 0 42 42" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14b8a6"/><stop offset="1" stop-color="#0a6b5e"/></linearGradient></defs><rect width="42" height="42" rx="13" fill="url(#lg)"/><circle cx="33" cy="9" r="4.5" fill="#ff8a3d"/><g fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16h20M24 10l6 6-6 6"/><path d="M32 27H12M18 21l-6 6 6 6"/></g></svg>`;
+function navbar() {
+  const pend = me ? D.offers.filter(o => o.toUser === me.id && o.status === 'pendiente').length : 0;
+  $('#nav').innerHTML = `<a class="logo" href="#/">${LOGO}<span>Trueque<b>Facil</b></span></a>
+  <form class="search" data-form="search"><input name="q" placeholder="Buscar artículos…" value="${esc(flt.q)}"><button class="btn dark">Buscar</button></form>
+  <span class="spacer"></span><a class="navlink" href="#/explorar">Explorar</a>
+  ${me ? `<a class="navlink" href="#/propuestas">Propuestas${pend ? `<span class="badge">${pend}</span>` : ''}</a>
+    <a class="btn dark" href="#/subir">Subir artículo</a>
+    <a class="navlink" href="#/perfil"><span class="avatar" style="width:34px;height:34px">${initial(me)}</span> ${esc(me.username)}</a>`
+  : `<a class="btn" data-a="gate">Subir artículo</a><a class="btn" href="#/login">Iniciar sesión</a><a class="btn dark" href="#/registro">Crear cuenta</a>`}`;
+  $('#foot').innerHTML = `<a href="#/como-funciona">Cómo funciona</a> · <a href="#/ayuda">Ayuda</a> · <a href="#/terminos">Términos y condiciones</a> · <a href="#/privacidad">Política de privacidad</a><br><span style="opacity:.75">© ${new Date().getFullYear()} TruequeFacil. Todos los derechos reservados.</span>`;
+}
+function gate() {
+  openModal(`<div class="center"><span class="avatar big" style="width:56px;height:56px;font-size:26px">!</span>
+  <h2 style="margin:14px 0 8px;font-size:20px">Necesitas una cuenta para intercambiar</h2>
+  <p class="muted" style="font-size:14px">Puedes seguir viendo artículos, pero para publicar o proponer intercambios debes iniciar sesión o crear una cuenta.</p>
+  <div class="two" style="margin:18px 0 12px"><a class="btn dark" href="#/login" data-a="close">Iniciar sesión</a><a class="btn" href="#/registro" data-a="close">Crear cuenta</a></div>
+  <a data-a="close" style="font-weight:700">Seguir explorando</a></div>`);
+}
+
+/* ---------- Vistas ---------- */
+const V = {};
+
+V.home = () => {
+  const rec = avail().slice(0, 5);
+  return `<section class="hero"><div class="grow"><h1>Cambia lo que no usas por <em>lo que necesitas</em></h1>
+    <p>Publica un artículo, indica qué buscas a cambio y encuentra a quién le interesa.</p>
+    <a class="btn dark" href="#/explorar">Explorar artículos</a> ${me ? '' : '<a class="btn" href="#/registro">Crear cuenta gratis</a>'}</div>
+    ${me ? '' : '<div class="aviso">Sin cuenta puedes ver todos los artículos. Para publicar o proponer un intercambio necesitas iniciar sesión.</div>'}</section>
+  <div class="chips"><a class="chip on" href="#/explorar" data-cat="">Todas</a>${CATS.map(c => `<a class="chip" href="#/explorar" data-cat="${c}">${c}</a>`).join('')}</div>
+  <div class="row"><h2>Publicados recientemente</h2><a href="#/explorar" style="font-weight:700">Ver todos →</a></div>
+  ${rec.length ? `<div class="grid">${rec.map(card).join('')}</div>` : `<div class="empty">Aún no hay artículos publicados. ¡Sé la primera persona en subir uno!<br><br><a class="btn dark" ${me ? 'href="#/subir"' : 'data-a="gate"'}>Subir artículo</a></div>`}`;
+};
+
+V.explore = () => {
+  let list = avail().filter(i => i.status !== 'intercambiado');
+  const q = flt.q.trim().toLowerCase();
+  if (q) list = list.filter(i => (i.title + ' ' + i.description + ' ' + i.wantTitle + ' ' + i.category).toLowerCase().includes(q));
+  if (flt.cats.length) list = list.filter(i => flt.cats.includes(i.category));
+  if (flt.conds.length) list = list.filter(i => flt.conds.includes(i.condition));
+  if (flt.city.trim()) list = list.filter(i => i.city.toLowerCase().includes(flt.city.trim().toLowerCase()));
+  list.sort((a, b) => flt.sort === 'old' ? a.createdAt - b.createdAt : flt.sort === 'az' ? a.title.localeCompare(b.title) : b.createdAt - a.createdAt);
+  return `<div class="layout"><aside class="panel"><h3>Filtros</h3>
+  <h4>Categorías</h4>${CATS.map(c => `<label><input type="checkbox" data-f="cats" value="${c}" ${flt.cats.includes(c) ? 'checked' : ''}>${c}</label>`).join('')}
+  <h4>Estado</h4>${CONDS.map(c => `<label><input type="checkbox" data-f="conds" value="${c}" ${flt.conds.includes(c) ? 'checked' : ''}>${c}</label>`).join('')}
+  <h4>Ciudad</h4><input data-f="city" placeholder="Ej. Bogotá" value="${esc(flt.city)}">
+  <p style="margin-top:14px"><a class="btn sm block" data-a="clear">Limpiar filtros</a></p></aside>
+  <section><div class="row" style="margin-top:0"><div><h2>Explorar artículos</h2><span class="muted">Mostrando ${list.length} resultado${list.length === 1 ? '' : 's'}${q ? ` para “${esc(flt.q)}”` : ''}</span></div>
+  <select data-f="sort" style="width:auto"><option value="new" ${flt.sort === 'new' ? 'selected' : ''}>Más recientes</option><option value="old" ${flt.sort === 'old' ? 'selected' : ''}>Más antiguos</option><option value="az" ${flt.sort === 'az' ? 'selected' : ''}>A–Z</option></select></div>
+  ${list.length ? `<div class="grid">${list.map(card).join('')}</div>` : '<div class="empty">No hay artículos con esos filtros.</div>'}</section></div>`;
+};
+
+V.item = id => {
+  const i = item(id); if (!i) return '<div class="empty" style="margin-top:30px">Este artículo no existe o fue eliminado.</div>';
+  const o = user(i.userId); const done = i.status === 'intercambiado'; const mine = me && me.id === i.userId;
+  const n = D.offers.filter(x => x.toUser === i.userId && x.status === 'aceptada').length + D.offers.filter(x => x.fromUser === i.userId && x.status === 'aceptada').length;
+  return `<p class="muted" style="margin-top:18px"><a href="#/">Inicio</a> › <a href="#/explorar">${esc(i.category)}</a> › ${esc(i.title)}</p>
+  <div class="detail"><div>${img(i, 'main-img')}<div class="thumbs">${(i.images || []).map(s => `<img src="${s}" data-a="zoom" alt="">`).join('')}</div></div>
+  <div><h1 style="font-size:28px;margin-bottom:10px">${esc(i.title)}</h1>
+  <span class="tag">${esc(i.category)}</span><span class="tag">${esc(i.condition)}</span><span class="tag">${esc(i.city)}</span>${done ? '<span class="tag" style="background:var(--accent);border-color:var(--accent);color:#fff">Intercambiado</span>' : ''}
+  <p><a href="#/perfil/${o?.id}"><span class="avatar">${initial(o)}</span></a> <b>@${esc(o?.username || 'usuario')}</b><br><span class="muted">${n} intercambio${n === 1 ? '' : 's'} · Publicado ${ago(i.createdAt)}</span></p>
+  <label class="f">Descripción</label><div class="box">${esc(i.description || 'Sin descripción.')}</div>
+  <label class="f">Busca a cambio</label><div class="box want">${esc(i.wantTitle)}${i.wantCategory ? '  ·  Categoría: ' + esc(i.wantCategory) : ''}${i.wantNotes ? '<br><span style="font-weight:400">' + esc(i.wantNotes) + '</span>' : ''}</div>
+  ${done ? '<p class="muted">Este artículo ya fue intercambiado.</p>' : mine ? `<p class="muted">Este es tu artículo.</p><a class="btn" data-a="delitem" data-id="${i.id}">Eliminar publicación</a>`
+    : `<a class="btn dark" data-a="offer" data-id="${i.id}" style="min-width:230px">Proponer intercambio</a>`}
+  ${!me && !done ? '<p class="muted" style="margin-top:12px">Visitante: al proponer un intercambio se te pedirá iniciar sesión.</p>' : ''}</div></div>`;
+};
+
+V.login = () => `<div class="formcard"><h1 style="font-size:24px">Iniciar sesión</h1><p class="muted">Bienvenido de nuevo a TruequeFacil</p>
+  <form data-form="login"><label class="f">Correo electrónico</label><input type="email" name="email" placeholder="correo@ejemplo.com" required>
+  <label class="f">Contraseña</label><input type="password" name="password" placeholder="••••••••" required>
+  <div class="err" id="err"></div><br><button class="btn dark block">Entrar</button></form>
+  <p class="center muted">¿No tienes cuenta?</p><a class="btn block" href="#/registro">Crear una cuenta nueva</a>
+  <p class="center"><a href="#/" style="font-weight:700">Continuar como visitante</a></p></div>`;
+
+V.register = () => `<div class="formcard wide"><h1 style="font-size:24px">Crear cuenta</h1><p class="muted">Únete a TruequeFacil: publica artículos y propón intercambios.</p>
+  <form data-form="register"><div class="two"><div><label class="f">Nombre completo</label><input name="name" required></div><div><label class="f">Usuario</label><input name="username" placeholder="camilo_r" pattern="[A-Za-z0-9_.]{3,20}" title="3 a 20 caracteres: letras, números, _ o ." required></div>
+  <div><label class="f">Correo electrónico</label><input type="email" name="email" required></div><div><label class="f">Ciudad</label><input name="city" required></div>
+  <div><label class="f">Contraseña</label><input type="password" name="password" minlength="6" required></div><div><label class="f">Confirmar contraseña</label><input type="password" name="password2" minlength="6" required></div></div>
+  <label style="display:block;margin:16px 0;font-size:13px"><input type="checkbox" required style="width:auto;margin-right:8px">Soy mayor de 18 años, acepto los <a href="#/terminos" target="_blank" rel="noopener" style="color:var(--brand2);font-weight:700;text-decoration:underline">Términos y condiciones</a> y autorizo el tratamiento de mis datos personales según la <a href="#/privacidad" target="_blank" rel="noopener" style="color:var(--brand2);font-weight:700;text-decoration:underline">Política de privacidad</a>.</label>
+  <div class="err" id="err"></div><button class="btn dark block" style="margin-top:12px">Crear cuenta</button></form>
+  <p class="center muted">¿Ya tienes cuenta? <a href="#/login" style="font-weight:700;color:#222">Inicia sesión</a></p></div>`;
+
+V.upload = () => `<h1 style="font-size:26px;margin-top:22px">Subir un artículo</h1>
+  <form data-form="upload"><div class="two" style="align-items:start;margin-top:8px"><div class="panel" style="padding:20px">
+  <label class="f" style="margin-top:0">Título del artículo</label><input name="title" placeholder="Ej. Bicicleta de montaña" required maxlength="80">
+  <div class="two"><div><label class="f">Categoría</label><select name="category" required><option value="">Selecciona…</option>${CATS.map(c => `<option>${c}</option>`).join('')}</select></div>
+  <div><label class="f">Estado</label><select name="condition">${CONDS.map(c => `<option ${c === 'Usado' ? 'selected' : ''}>${c}</option>`).join('')}</select></div></div>
+  <label class="f">Descripción</label><textarea name="description" placeholder="Marca, tamaño, detalles, tiempo de uso…" required maxlength="800"></textarea>
+  <label class="f">Ciudad</label><input name="city" value="${esc(me?.city || '')}" required></div>
+  <div><div class="panel" style="padding:20px"><b style="color:#222">Fotos del artículo</b><div class="upl" id="slots"></div>
+  <input type="file" id="file" accept="image/*" multiple hidden><p class="muted" style="margin:8px 0 0">Hasta 4 imágenes · JPG, PNG o WebP · máx. 10 MB cada una (se optimizan automáticamente)</p></div>
+  <div class="panel" style="padding:20px;margin-top:16px"><b style="color:#222">¿Qué quieres recibir a cambio?</b>
+  <label class="f">Artículo que buscas</label><input name="wantTitle" placeholder="Ej. Consola de videojuegos" required maxlength="80">
+  <label class="f">Categoría deseada</label><select name="wantCategory"><option value="">Cualquiera</option>${CATS.map(c => `<option>${c}</option>`).join('')}</select>
+  <label class="f">Notas (opcional)</label><input name="wantNotes" placeholder="Ej. Acepto también un teclado" maxlength="120"></div>
+  <div class="err" id="err"></div><div class="two" style="margin-top:16px"><button class="btn dark">Publicar artículo</button><a class="btn" href="#/">Cancelar</a></div></div></div></form>`;
+
+V.profile = id => {
+  const u = id ? user(id) : me; if (!u) return '<div class="empty" style="margin-top:30px">Usuario no encontrado.</div>';
+  const own = me && me.id === u.id;
+  const its = D.items.filter(i => i.userId === u.id).sort((a, b) => b.createdAt - a.createdAt);
+  const done = D.offers.filter(o => o.status === 'aceptada' && (o.fromUser === u.id || o.toUser === u.id)).length;
+  const pend = D.offers.filter(o => o.status === 'pendiente' && o.toUser === u.id).length;
+  const shown = own ? its : its.filter(i => i.status !== 'intercambiado');
+  return `<div class="profile"><aside class="panel center"><span class="avatar big">${initial(u)}</span><h2 style="margin-top:10px">${esc(u.name)}</h2><span class="muted">@${esc(u.username)} · ${esc(u.city)}</span>
+  <div class="stats"><div><b>${its.length}</b><span>Publicados</span></div><div><b>${done}</b><span>Cambios</span></div>${own ? `<div><b>${pend}</b><span>Pendientes</span></div>` : ''}</div>
+  ${own ? '<a class="btn block sm" data-a="logout">Cerrar sesión</a>' : ''}</aside>
+  <section><div class="tabs"><a class="chip on">${own ? 'Mis artículos' : 'Artículos'}</a>${own ? '<a class="chip" href="#/propuestas">Propuestas</a>' : ''}</div>
+  <div class="row" style="margin-top:12px"><h2>${own ? 'Mis artículos publicados' : 'Artículos de @' + esc(u.username)}</h2>${own ? '<a class="btn dark sm" href="#/subir">+ Subir artículo</a>' : ''}</div>
+  ${shown.length ? `<div class="grid">${shown.map(card).join('')}${own ? '<a class="card" href="#/subir" style="display:flex;align-items:center;justify-content:center;border-style:dashed;min-height:240px;color:#777;font-weight:700;text-align:center">+<br>Nuevo artículo</a>' : ''}</div>` : '<div class="empty">Todavía no hay artículos publicados.</div>'}</section></div>`;
+};
+
+V.offers = () => {
+  const tab = V.offers.tab || 'rec';
+  let list = D.offers.filter(o => tab === 'rec' ? o.toUser === me.id && o.status === 'pendiente' : tab === 'env' ? o.fromUser === me.id && o.status === 'pendiente' : (o.fromUser === me.id || o.toUser === me.id) && o.status !== 'pendiente');
+  list.sort((a, b) => b.createdAt - a.createdAt);
+  const cnt = (f) => D.offers.filter(f).length;
+  const row = o => {
+    const mine = item(o.offeredItem), theirs = item(o.targetItem); const incoming = o.toUser === me.id;
+    const a = incoming ? theirs : mine, b = incoming ? mine : theirs; // a = tu artículo, b = el otro
+    const other = user(incoming ? o.fromUser : o.toUser);
+    const mini = (i, t) => `<a class="it" href="#/item/${i?.id}">${img(i)}<div><span class="muted">${t}</span><br><b style="color:#222">${esc(i?.title || '(eliminado)')}</b></div></a>`;
+    const chat = `<a class="btn dark sm" href="#/chat/${o.id}">${o.status === 'pendiente' ? 'Abrir chat' : 'Ver chat'}</a>`;
+    const act = o.status === 'pendiente'
+      ? `<div class="two" style="margin-top:8px">${chat}${incoming ? `<a class="btn sm" data-a="reject" data-id="${o.id}">Rechazar</a>` : `<a class="btn sm" data-a="cancel" data-id="${o.id}">Cancelar</a>`}</div>`
+      : o.status === 'aceptada' ? `<div class="two" style="margin-top:8px">${chat}<a class="btn sm" href="#/entrega/${o.id}">${o.paid ? 'Entrega ✓' : 'Entrega'}</a></div>` : '';
+    return `<div class="offer">${mini(a, 'Tu artículo')}<div class="arrow">↔</div>${mini(b, incoming ? 'Te ofrecen' : 'Tú ofreces por')}
+    <div><b style="color:#222">@${esc(other?.username || '?')}</b><br><span class="muted">${ago(o.createdAt)}</span><br><span class="status">${o.status[0].toUpperCase() + o.status.slice(1)}${o.paid ? ' · pagada' : ''}</span>${act}</div></div>`;
+  };
+  return `<h1 style="font-size:26px;margin-top:22px">Propuestas de intercambio</h1>
+  <div class="tabs" style="margin-top:12px"><a class="chip ${tab === 'rec' ? 'on' : ''}" data-a="tab" data-t="rec">Recibidas (${cnt(o => o.toUser === me.id && o.status === 'pendiente')})</a>
+  <a class="chip ${tab === 'env' ? 'on' : ''}" data-a="tab" data-t="env">Enviadas (${cnt(o => o.fromUser === me.id && o.status === 'pendiente')})</a>
+  <a class="chip ${tab === 'his' ? 'on' : ''}" data-a="tab" data-t="his">Acordadas e historial</a><span class="spacer"></span><a href="#/perfil" style="font-weight:700">← Volver a mi perfil</a></div>
+  <div style="margin-top:16px">${list.length ? list.map(row).join('') : '<div class="empty">No hay propuestas en esta sección.</div>'}</div>
+  <div class="aviso" style="max-width:none">Abre el chat para conversar. Cuando las dos personas acepten el trueque, podrán completar los datos de entrega y pagar el domicilio.</div>`;
+};
+
+/* ---------- Chat del trueque ---------- */
+let M = [];                         // mensajes del chat abierto
+const hm = t => new Date(t).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+const sigOf = o => JSON.stringify([o.status, !!o.accFrom, !!o.accTo]);
+const sys = (id, text) => Store.add('messages', { offerId: id, userId: 'sistema', text, createdAt: Date.now() });
+
+function headHTML(o) {
+  const isFrom = o.fromUser === me.id, myAcc = isFrom ? o.accFrom : o.accTo, thAcc = isFrom ? o.accTo : o.accFrom;
+  const other = user(isFrom ? o.toUser : o.fromUser);
+  const mine = item(isFrom ? o.offeredItem : o.targetItem), theirs = item(isFrom ? o.targetItem : o.offeredItem);
+  const mini = (i, t) => `<a class="it" href="#/item/${i?.id}">${img(i)}<div><span class="muted">${t}</span><br><b style="color:var(--ink)">${esc(i?.title || '(eliminado)')}</b></div></a>`;
+  const pill = (n, ok) => `<span class="status" style="${ok ? 'background:var(--brand);color:#fff;border-color:var(--brand)' : ''}">${n}: ${ok ? '✓ aceptó' : 'sin aceptar'}</span>`;
+  let act;
+  if (o.status === 'pendiente') act = (myAcc ? `<div class="waitbox">Aceptaste el trueque. Esperando a @${esc(other?.username)}…</div>` : `<a class="btn dark" data-a="accepttrade" data-id="${o.id}">✓ Aceptar trueque</a>`) + `<a class="btn sm" data-a="canceltrade" data-id="${o.id}">Cancelar trueque</a>`;
+  else if (o.status === 'aceptada') act = `<div class="okbox"><b>¡Trueque acordado por las dos personas!</b><br>Siguiente paso: datos de entrega y pago del domicilio.</div><a class="btn dark" href="#/entrega/${o.id}">Continuar con la entrega →</a>`;
+  else act = `<div class="waitbox">Este trueque fue ${esc(o.status)}.</div>`;
+  return `<div class="chattop"><a href="#/propuestas" style="font-weight:700">← Propuestas</a><span class="muted">Chat con <b>@${esc(other?.username || '?')}</b></span></div>
+  <div class="swap">${mini(mine, 'Tu artículo')}<div class="arrow">↔</div>${mini(theirs, 'Su artículo')}</div>
+  <div class="pills">${pill('Tú', myAcc)}${pill('@' + esc(other?.username || '?'), thAcc)}</div><div class="acts">${act}</div>`;
+}
+function msgsHTML() {
+  if (!M.length) return '<div class="muted center" style="margin:auto">Aún no hay mensajes. ¡Saluda y ponte de acuerdo con la otra persona!</div>';
+  return [...M].sort((a, b) => a.createdAt - b.createdAt).map(m => m.userId === 'sistema' ? `<div class="sysmsg">${esc(m.text)}</div>`
+    : `<div class="bub ${m.userId === me.id ? 'me' : 'th'}"><div>${esc(m.text)}</div><span>${hm(m.createdAt)}</span></div>`).join('');
+}
+V.chat = id => {
+  const o = D.offers.find(x => x.id === id);
+  if (!o || (o.fromUser !== me.id && o.toUser !== me.id)) return '<div class="empty" style="margin-top:30px">No tienes acceso a este chat.</div>';
+  return `<div class="chatbox"><div id="chathead" data-sig="${esc(sigOf(o))}">${headHTML(o)}</div><div class="msgs" id="msgs" data-n="-1"></div>
+  <form class="chatform" data-form="msg" data-id="${id}"><input name="text" placeholder="Escribe un mensaje…" autocomplete="off" maxlength="500" required><button class="btn dark">Enviar</button></form></div>`;
+};
+async function refreshChat(id, scroll) {
+  const [o, m] = await Promise.all([Store.one('offers', id), Store.all('messages', 'offerId', id)]);
+  if (!o) return;
+  D.offers = D.offers.some(x => x.id === id) ? D.offers.map(x => x.id === id ? o : x) : [...D.offers, o];
+  M = m;
+  const h = $('#chathead'), box = $('#msgs'); if (!h || !box) return;
+  const s = sigOf(o); if (h.dataset.sig !== s) { h.innerHTML = headHTML(o); h.dataset.sig = s; }
+  if (box.dataset.n !== String(M.length)) {
+    const atEnd = box.scrollHeight - box.scrollTop - box.clientHeight < 80;
+    box.innerHTML = msgsHTML(); box.dataset.n = String(M.length);
+    if (atEnd || scroll || box.dataset.first !== '1') { box.scrollTop = box.scrollHeight; box.dataset.first = '1'; }
+  }
+}
+async function acceptTrade(id) {
+  const o0 = await Store.one('offers', id); if (!o0 || o0.status !== 'pendiente') return;
+  await Store.set('offers', id, o0.fromUser === me.id ? { accFrom: true } : { accTo: true });
+  await sys(id, `@${me.username} aceptó el trueque.`);
+  const o = await Store.one('offers', id);
+  if (o.accFrom && o.accTo) {
+    await Store.set('offers', id, { status: 'aceptada', acceptedAt: Date.now(), payToken: uid() + uid() });
+    await Store.set('items', o.offeredItem, { status: 'intercambiado' });
+    await Store.set('items', o.targetItem, { status: 'intercambiado' });
+    for (const x of await Store.all('offers')) if (x.id !== id && x.status === 'pendiente' && [o.offeredItem, o.targetItem].some(k => k === x.offeredItem || k === x.targetItem)) await Store.set('offers', x.id, { status: 'cancelada' });
+    await sys(id, '¡Las dos personas aceptaron! Ya pueden completar los datos de entrega.');
+    toast('¡Trueque acordado!');
+  } else toast('Aceptaste. Falta que la otra persona acepte.');
+  await refreshChat(id, true);
+}
+
+/* ---------- Entrega y pago (simulado) ---------- */
+const FEE = 12000;
+const money = n => '$' + n.toLocaleString('es-CO') + ' COP';
+function qrSvg(text) {
+  const { QRCode, QRErrorCorrectLevel } = window.__QR; const q = new QRCode(-1, QRErrorCorrectLevel.M); q.addData(text); q.make();
+  const n = q.getModuleCount(), m = 3; let d = '';
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c + m} ${r + m}h1v1h-1z`;
+  return `<svg viewBox="0 0 ${n + 2 * m} ${n + 2 * m}" shape-rendering="crispEdges" role="img" aria-label="Código QR de pago"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#111"/></svg>`;
+}
+const payUrl = o => location.href.split('#')[0] + '#/pagar/' + o.id + '/' + o.payToken;
+V.delivery = id => {
+  const o = D.offers.find(x => x.id === id);
+  if (!o || (o.fromUser !== me.id && o.toUser !== me.id)) return '<div class="empty" style="margin-top:30px">No tienes acceso a esta entrega.</div>';
+  if (o.status !== 'aceptada') return `<div class="empty" style="margin-top:30px">La entrega se habilita cuando las dos personas aceptan el trueque.<br><br><a class="btn dark" href="#/chat/${id}">Ir al chat</a></div>`;
+  const isFrom = o.fromUser === me.id, my = isFrom ? o.delivFrom : o.delivTo, th = isFrom ? o.delivTo : o.delivFrom, other = user(isFrom ? o.toUser : o.fromUser);
+  const steps = n => `<div class="steps">${['Datos de entrega', 'Pago del domicilio', 'Listo'].map((s, i) => `<div class="st ${i < n ? 'done' : ''} ${i === n ? 'cur' : ''}"><b>${i < n ? '✓' : i + 1}</b>${s}</div>`).join('')}</div>`;
+  const head = `<p class="muted" style="margin-top:18px"><a href="#/chat/${id}">← Volver al chat</a></p><h1 style="font-size:26px">Entrega del trueque</h1>
+    <p class="muted">${esc(item(isFrom ? o.offeredItem : o.targetItem)?.title)} ↔ ${esc(item(isFrom ? o.targetItem : o.offeredItem)?.title)} · con @${esc(other?.username)}</p>`;
+  const mySum = my ? `<div class="sum"><div><b>Tus datos:</b> ${esc(my.name)} · ${esc(my.docType)} ${esc(my.doc)}</div><div>${esc(my.address)}, ${esc(my.city)} · Tel. ${esc(my.phone)}</div><div class="muted">Datos de @${esc(other?.username)}: ${th ? 'recibidos ✓' : 'pendientes'}</div></div>` : '';
+  if (o.paid) return head + steps(3) + `<div class="formcard center" style="max-width:560px"><div class="bigcheck">✓</div><h1 style="font-size:26px">¡Pago exitoso!</h1>
+    <p>El pago del domicilio por <b>${money(FEE)}</b> fue confirmado${o.paidAt ? ' el ' + new Date(o.paidAt).toLocaleString('es-CO') : ''}.</p><p class="muted">Referencia: ${esc(o.id.slice(-8).toUpperCase())} · Pago simulado</p>${mySum}
+    <p class="muted">Un mensajero recogerá y entregará los artículos en las direcciones registradas.</p><div class="two"><a class="btn dark" href="#/propuestas">Mis propuestas</a><a class="btn" href="#/">Ir al inicio</a></div></div>`;
+  if (!my) return head + steps(0) + `<div class="formcard wide" style="margin:10px auto"><h2 style="font-size:20px">Tus datos para la entrega</h2><p class="muted">Cada persona completa los suyos. Cuando ambas terminen, aparecerá el QR para pagar el domicilio.</p>
+    <form data-form="delivery" data-id="${id}"><div class="two"><div><label class="f">Nombre completo</label><input name="name" value="${esc(me.name)}" required></div><div><label class="f">Teléfono</label><input name="phone" type="tel" placeholder="3001234567" pattern="[0-9+ ]{7,15}" title="Entre 7 y 15 dígitos" required></div>
+    <div><label class="f">Tipo de documento</label><select name="docType"><option>CC</option><option>CE</option><option>TI</option><option>Pasaporte</option></select></div><div><label class="f">Número de documento</label><input name="doc" placeholder="1012345678" pattern="[0-9A-Za-z]{5,15}" title="Entre 5 y 15 caracteres" required></div>
+    <div><label class="f">Dirección completa</label><input name="address" placeholder="Calle 10 # 5-20, Apto 301" required></div><div><label class="f">Ciudad</label><input name="city" value="${esc(me.city)}" required></div></div>
+    <div class="err" id="err"></div><br><button class="btn dark block">Guardar y continuar</button></form></div>`;
+  if (!th) return head + steps(0) + `<div class="formcard center" style="max-width:560px"><h2 style="font-size:20px">¡Tus datos están guardados!</h2>${mySum}<div class="pulse"><i></i>Esperando los datos de @${esc(other?.username)}…</div><p class="muted">Esta pantalla se actualizará sola.</p></div>`;
+  const url = payUrl(o);
+  return head + steps(1) + `<div class="qrwrap"><div class="qrbox">${qrSvg(url)}</div><div><h2 style="font-size:22px">Paga el domicilio con el QR</h2><div class="price">${money(FEE)}</div>
+    <p class="muted">Escanea el código con la cámara de tu celular. Es una simulación: al escanearlo se registra el pago como exitoso, sin cobrar nada.</p>
+    <div class="pulse"><i></i>Esperando el pago… se detecta automáticamente</div>${mySum}
+    <p><a class="btn sm" href="${esc(url)}" target="_blank" rel="noopener">Simular escaneo (abrir enlace del QR)</a></p>
+    <p class="muted" style="font-size:12px">Cuando alguien escanee el QR, esta pantalla se recarga sola y muestra el pago exitoso.</p></div></div>`;
+};
+async function pollDelivery(id) {
+  const o = await Store.one('offers', id); if (!o) return;
+  if (o.paid) { location.reload(); return; }      // el QR fue escaneado: recarga y muestra "pago exitoso"
+  const old = D.offers.find(x => x.id === id); const k = x => (x?.delivFrom ? 1 : 0) + '' + (x?.delivTo ? 1 : 0);
+  D.offers = D.offers.map(x => x.id === id ? o : x);
+  if (old && k(old) !== k(o) && (o.fromUser === me.id ? o.delivFrom : o.delivTo)) $('#app').innerHTML = V.delivery(id);
+}
+async function payRoute(id, token) {
+  const o = await Store.one('offers', id);
+  const ok = !!o && o.payToken === token && o.status === 'aceptada' && !!o.delivFrom && !!o.delivTo;
+  if (ok && !o.paid) await Store.set('offers', id, { paid: true, paidAt: Date.now() });
+  return ok ? `<div class="formcard center"><div class="bigcheck">✓</div><h1 style="font-size:26px">¡Pago exitoso!</h1><p>Se registró el pago del domicilio por <b>${money(FEE)}</b>.</p>
+    <p class="muted">Referencia: ${esc(id.slice(-8).toUpperCase())} · Pago simulado, no se cobró nada.<br>La pantalla del trueque se actualizará sola.</p><a class="btn dark" href="#/">Ir a TruequeFacil</a></div>`
+    : `<div class="formcard center"><h1 style="font-size:24px">Código no válido</h1><p class="muted">Este QR no corresponde a un pago pendiente.</p><a class="btn" href="#/">Ir al inicio</a></div>`;
+}
+
+
+/* ---------- Páginas informativas ---------- */
+const legalPage = (title, tab, secs) => `<div class="legal"><div class="tabs"><a class="chip ${tab === 't' ? 'on' : ''}" href="#/terminos">Términos y condiciones</a><a class="chip ${tab === 'p' ? 'on' : ''}" href="#/privacidad">Política de privacidad</a></div>
+  <h1>${title}</h1><p class="muted">Última actualización: ${LEGAL.fecha}</p>
+  ${secs.map(([h, ...ps], i) => `<h2>${i + 1}. ${h}</h2>${ps.map(p => Array.isArray(p) ? `<ul>${p.map(x => `<li>${x}</li>`).join('')}</ul>` : `<p>${p}</p>`).join('')}`).join('')}</div>`;
+
+V.terms = () => legalPage('Términos y condiciones de uso', 't', [
+  ['Quiénes somos y aceptación',
+   `TruequeFacil (la «Plataforma») es un sitio web operado por <b>${LEGAL.titular}</b>, identificado con ${LEGAL.nit}, con domicilio en ${LEGAL.ciudad}, Colombia. Permite que personas naturales publiquen artículos y propongan trueques (permutas) entre sí.`,
+   'Al crear una cuenta o usar la Plataforma, declaras que leíste y aceptas estos Términos y la Política de privacidad. Si no estás de acuerdo, no uses la Plataforma. Puedes navegar y ver los artículos sin cuenta, pero para publicar o proponer trueques debes registrarte.'],
+  ['Naturaleza del servicio',
+   'La Plataforma es únicamente un medio tecnológico de contacto. El trueque (contrato de permuta o cambio, regulado en el Código Civil colombiano, arts. 1955 y siguientes) se celebra directamente entre los usuarios. TruequeFacil no es parte de ese contrato, no es dueño, vendedor ni garante de los artículos, y no verifica su existencia, estado, calidad, legalidad o titularidad.',
+   'De acuerdo con la Ley 527 de 1999 sobre mensajes de datos y comercio electrónico, los acuerdos, aceptaciones y mensajes hechos a través de la Plataforma tienen validez y pueden usarse como prueba.'],
+  ['Registro y cuenta',
+   ['Debes ser mayor de 18 años y tener capacidad legal para contratar. La Plataforma no está dirigida a menores de edad (Ley 1098 de 2006).',
+    'Debes dar información veraz, completa y actualizada. Solo puedes tener una cuenta y no puedes suplantar a otra persona.',
+    'Eres responsable de guardar tu contraseña y de toda actividad realizada desde tu cuenta. Avísanos de inmediato si detectas un uso no autorizado.']],
+  ['Publicación de artículos',
+   'Al publicar declaras que eres el propietario del artículo o que tienes derecho a disponer de él, que la descripción y las fotos son reales y que no engañas sobre su estado o características. Cada publicación admite hasta 4 imágenes de máximo 10 MB cada una.',
+   'Está prohibido publicar, ofrecer o intercambiar:',
+   ['Artículos robados o de procedencia ilícita (el Código Penal, Ley 599 de 2000, sanciona la receptación).',
+    'Armas, municiones, explosivos y sus accesorios (Decreto 2535 de 1993 y normas concordantes).',
+    'Drogas, sustancias psicoactivas o estupefacientes (Ley 30 de 1986), y medicamentos de venta bajo fórmula médica.',
+    'Animales vivos, fauna o flora silvestre y sus productos (Ley 1333 de 2009 y Ley 1774 de 2016).',
+    'Productos falsificados, «réplicas» que infrinjan marcas o derechos de autor (Ley 23 de 1982 y Decisión Andina 486 de 2000), o copias piratas de software, libros, música o películas.',
+    'Documentos de identidad, datos personales de terceros, órganos, tejidos o productos biológicos.',
+    'Bienes sujetos a registro o licencia especial (como vehículos o inmuebles) y cualquier bien cuya circulación esté restringida por la ley.',
+    'Contenido sexual, violento, discriminatorio, difamatorio o que involucre menores de edad.']],
+  ['Propuestas, chat y aceptación del trueque',
+   'Cuando propones un trueque se abre un chat con la otra persona. El trueque se entiende acordado solo cuando <b>ambas personas pulsan «Aceptar trueque»</b>; en ese momento los artículos se marcan como «Intercambiados» y se cierran otras propuestas sobre ellos. Antes de que ambos acepten, cualquiera puede cancelar o rechazar.',
+   'Una vez acordado, te comprometes a cumplir de buena fe lo pactado (art. 1603 del Código Civil). El chat debe usarse con respeto: están prohibidos el acoso, el spam, las amenazas, los intentos de fraude y pedir dinero, claves o códigos fuera de la Plataforma. Los mensajes se almacenan para la operación del servicio, la seguridad y la resolución de reclamaciones.'],
+  ['Entrega y pago del domicilio',
+   'Para coordinar la entrega, cada persona debe suministrar nombre, tipo y número de documento, teléfono y dirección. Esos datos se usan únicamente para coordinar la entrega y el pago del domicilio, y se tratan según la Política de privacidad.',
+   'El costo del domicilio se informa antes de pagar y se cancela mediante el código QR dispuesto en la Plataforma. Mientras esta función esté en fase de pruebas, el pago es simulado y no genera cobros reales.',
+   'El transporte lo realiza un tercero o las propias partes. TruequeFacil no responde por pérdidas, retrasos o daños durante el transporte, sin perjuicio de las responsabilidades que la ley imponga al transportador. Te recomendamos revisar el artículo al recibirlo y conservar evidencia (fotos, mensajes).'],
+  ['Costos',
+   'Usar la Plataforma es gratuito. Si en el futuro se crean servicios con costo, se informará de forma clara y previa, con el valor total y las condiciones, conforme al Estatuto del Consumidor (Ley 1480 de 2011).'],
+  ['Responsabilidad',
+   'Los usuarios son los únicos responsables de los artículos que publican, de lo que pactan entre sí y de las obligaciones legales o tributarias que les correspondan. TruequeFacil no garantiza que se concrete un trueque ni la conducta de otros usuarios.',
+   'Las relaciones de trueque entre personas naturales que no actúan de forma habitual con fines comerciales no son, en principio, relaciones de consumo. Quien ofrezca artículos de manera habitual o profesional puede ser considerado proveedor y asumir deberes como información veraz, garantías legales y derecho de retracto en ventas a distancia (Ley 1480 de 2011).',
+   'En la medida permitida por la ley, TruequeFacil no responde por daños indirectos derivados del uso de la Plataforma o de la conducta de los usuarios. Nada de estos Términos limita derechos irrenunciables que la ley reconozca ni responsabilidades que no puedan excluirse.'],
+  ['Propiedad intelectual y contenido de los usuarios',
+   'El nombre, logo, diseño y software de TruequeFacil son de su titular y están protegidos por la ley. Tú conservas los derechos sobre las fotos y textos que publiques, pero nos otorgas una licencia gratuita, no exclusiva y limitada para mostrarlos dentro de la Plataforma mientras tu publicación esté activa. Declaras que tienes derecho a usar ese contenido.'],
+  ['Uso indebido, moderación y suspensión',
+   'Está prohibido usar la Plataforma para fines ilegales, acceder sin autorización a cuentas o sistemas, introducir código malicioso o automatizar el uso de forma abusiva; estas conductas pueden constituir delitos informáticos (Ley 1273 de 2009).',
+   'Podemos retirar publicaciones, suspender o cancelar cuentas que incumplan estos Términos o la ley, y colaborar con las autoridades competentes cuando medie requerimiento legal.'],
+  ['Datos personales',
+   'Tratamos tus datos conforme a la Ley 1581 de 2012, el Decreto 1377 de 2013 (compilado en el Decreto 1074 de 2015) y nuestra <a href="#/privacidad" style="color:var(--brand2);font-weight:700">Política de privacidad</a>.'],
+  ['Reportes, peticiones y reclamaciones',
+   `Puedes reportar publicaciones o usuarios, o presentar peticiones, quejas y reclamos al correo <b>${LEGAL.correo}</b>. Responderemos en los plazos legales. Si no estás conforme, puedes acudir a la Superintendencia de Industria y Comercio (SIC), autoridad de protección al consumidor y de protección de datos personales.`],
+  ['Modificaciones',
+   'Podemos actualizar estos Términos. Publicaremos la versión vigente con su fecha de actualización y, si el cambio es importante, lo avisaremos en la Plataforma. Si sigues usando el servicio después del cambio, se entiende que lo aceptas.'],
+  ['Ley aplicable y jurisdicción',
+   `Estos Términos se rigen por las leyes de la República de Colombia. Las controversias se buscarán resolver primero de forma directa y, de no ser posible, ante los jueces competentes de ${LEGAL.ciudad}, sin perjuicio de los derechos que la ley otorgue al consumidor.`],
+  ['Contacto', `${LEGAL.titular} · ${LEGAL.correo} · ${LEGAL.ciudad}, Colombia.`]
+]);
+
+V.privacy = () => legalPage('Política de tratamiento de datos personales', 'p', [
+  ['Responsable del tratamiento',
+   `<b>${LEGAL.titular}</b> (${LEGAL.nit}), domicilio en ${LEGAL.ciudad}, Colombia. Contacto para consultas y reclamos: <b>${LEGAL.correo}</b>. Esta política se expide en cumplimiento de la Ley 1581 de 2012, el Decreto 1377 de 2013 (compilado en el Decreto 1074 de 2015) y demás normas sobre protección de datos personales.`],
+  ['Datos que recolectamos',
+   ['<b>Cuenta:</b> nombre completo, nombre de usuario, correo electrónico, ciudad y contraseña (almacenada de forma cifrada).',
+    '<b>Entrega y pago del domicilio:</b> tipo y número de documento, teléfono y dirección.',
+    '<b>Contenido:</b> artículos, descripciones, fotografías, propuestas y mensajes del chat.',
+    '<b>Técnicos:</b> datos mínimos de sesión guardados en tu navegador para mantenerte conectado.'],
+   'No solicitamos datos sensibles (salud, origen racial, orientación sexual, creencias, datos biométricos, etc.). Te pedimos no incluirlos en tus publicaciones, fotos o mensajes. No tratamos datos de menores de edad.'],
+  ['Finalidades',
+   ['Crear y administrar tu cuenta y permitir que publiques y propongas trueques.',
+    'Habilitar el chat y la comunicación entre las personas que acuerdan un trueque.',
+    'Coordinar la entrega y el pago del domicilio.',
+    'Prevenir fraudes, abusos y usos indebidos; atender reportes, peticiones y reclamos.',
+    'Cumplir obligaciones legales y requerimientos de autoridades competentes.',
+    'Mejorar la Plataforma y enviarte avisos relacionados con tu actividad (propuestas, mensajes, estado del trueque).']],
+  ['Autorización',
+   'Al registrarte y marcar la casilla de aceptación, otorgas tu autorización previa, expresa e informada para tratar tus datos con las finalidades descritas. Puedes revocarla o solicitar la supresión de tus datos en cualquier momento, salvo que exista un deber legal o contractual de conservarlos.'],
+  ['Tus derechos como titular',
+   ['Conocer, actualizar y rectificar tus datos.',
+    'Solicitar prueba de la autorización otorgada.',
+    'Ser informado sobre el uso que se ha dado a tus datos.',
+    'Presentar quejas ante la Superintendencia de Industria y Comercio por infracciones a la ley.',
+    'Revocar la autorización y/o solicitar la supresión de tus datos.',
+    'Acceder de forma gratuita a tus datos personales.'],
+   `Para ejercerlos, escribe a <b>${LEGAL.correo}</b> indicando tu nombre, usuario y la solicitud. Las consultas se responden en máximo 10 días hábiles (prorrogables 5 más) y los reclamos en máximo 15 días hábiles (prorrogables 8 más), conforme a los artículos 14 y 15 de la Ley 1581 de 2012.`],
+  ['Con quién compartimos tus datos',
+   ['<b>La otra persona del trueque:</b> ve tu nombre de usuario, ciudad y artículos; los datos de entrega se usan solo para coordinar el domicilio.',
+    '<b>Operadores logísticos o de pago</b> que intervengan en el domicilio, únicamente con los datos necesarios.',
+    '<b>Proveedores tecnológicos</b> (alojamiento y base de datos en la nube) que actúan como encargados del tratamiento bajo nuestras instrucciones.',
+    '<b>Autoridades</b> cuando exista orden o requerimiento legal.'],
+   'No vendemos tus datos. Algunos proveedores tecnológicos pueden almacenar información en servidores fuera de Colombia; en esos casos procuramos que cuenten con niveles adecuados de seguridad y protección conforme a la ley colombiana.'],
+  ['Seguridad y conservación',
+   'Aplicamos medidas técnicas y administrativas razonables para proteger tus datos (por ejemplo, contraseñas cifradas y control de acceso). Ningún sistema es infalible, por lo que te recomendamos usar una contraseña única y no compartirla. Conservamos tus datos mientras tengas cuenta activa y durante el tiempo necesario para cumplir obligaciones legales o resolver reclamaciones; luego se suprimen o anonimizan.'],
+  ['Almacenamiento en tu navegador',
+   'Usamos el almacenamiento local de tu navegador para mantener tu sesión iniciada. No usamos cookies de publicidad. Puedes borrar estos datos desde la configuración de tu navegador, lo que cerrará tu sesión.'],
+  ['Cambios a esta política',
+   'Si la modificamos, publicaremos la nueva versión con su fecha. Cambios sustanciales en las finalidades se te comunicarán y, cuando la ley lo exija, se pedirá nueva autorización.']
+]);
+
+V.how = () => `<div class="center" style="margin-top:30px"><h1 style="font-size:32px">¿Cómo funciona <span style="color:var(--brand)">Trueque</span><span style="color:var(--accent)">Facil</span>?</h1><p class="muted" style="font-size:15px">Cambia lo que ya no usas por lo que necesitas, en 6 pasos y sin intercambiar dinero entre personas.</p></div>
+  <div class="howgrid">${[
+    ['Explora', 'Mira todos los artículos publicados, busca por nombre y filtra por categoría, estado o ciudad. No necesitas cuenta para ver.'],
+    ['Crea tu cuenta', 'Regístrate gratis con tu correo (mayores de 18 años). La cuenta es obligatoria para publicar y para proponer trueques.'],
+    ['Publica tu artículo', 'Sube hasta 4 fotos (máx. 10 MB c/u), descríbelo y cuenta qué te gustaría recibir a cambio.'],
+    ['Propón un trueque', 'En el artículo que te interesa, elige uno de los tuyos para ofrecer. Se abre un chat con la otra persona.'],
+    ['Conversa y acepta', 'Pónganse de acuerdo en el chat. Cuando las dos personas pulsan «Aceptar trueque», el trueque queda acordado.'],
+    ['Entrega y pago del domicilio', 'Cada persona completa sus datos de entrega y se paga el domicilio con un código QR. ¡Listo, a recibir tu artículo!']
+  ].map((s, i) => `<div class="how"><b class="n">${i + 1}</b><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join('')}</div>
+  <div class="hero" style="margin-top:0"><div class="grow"><h2 style="font-size:22px">¿Listo para empezar?</h2><p>Publicar y proponer trueques es gratis.</p>
+  <a class="btn dark" href="#/explorar">Explorar artículos</a> ${me ? '<a class="btn" href="#/subir">Subir artículo</a>' : '<a class="btn" href="#/registro">Crear cuenta gratis</a>'} <a class="btn" href="#/ayuda">Ver preguntas frecuentes</a></div></div>`;
+
+V.help = () => {
+  const faq = [
+    ['¿Necesito una cuenta?', 'Para ver y buscar artículos, no. Para publicar, proponer trueques, chatear y pagar el domicilio, sí. Crear la cuenta es gratis y debes ser mayor de 18 años.'],
+    ['¿Cómo publico un artículo?', 'Inicia sesión, pulsa «Subir artículo», llena el título, categoría, estado, descripción y ciudad, agrega tus fotos y escribe qué quieres recibir a cambio.'],
+    ['¿Qué fotos puedo subir?', 'Hasta 4 imágenes por artículo, en JPG, PNG o WebP, de máximo 10 MB cada una. La página las optimiza automáticamente.'],
+    ['¿Cómo propongo un trueque?', 'Abre el artículo que te interesa, pulsa «Proponer intercambio», elige cuál de tus artículos ofreces y envía la propuesta. Se abrirá un chat con su dueño.'],
+    ['¿Cómo funciona el chat y la aceptación?', 'En el chat conversan y se ponen de acuerdo. Cada persona debe pulsar «Aceptar trueque». Cuando las dos lo hacen, el trueque queda acordado y se habilita la entrega.'],
+    ['¿Puedo cancelar un trueque?', 'Sí, antes de que ambas personas acepten: desde el chat con «Cancelar trueque», o desde Propuestas con «Rechazar» o «Cancelar». Una vez acordado, se espera que cumplas lo pactado.'],
+    ['¿Cómo pago el domicilio?', 'Cuando ambos llenan sus datos de entrega aparece un código QR. Se escanea con el celular y la pantalla se actualiza sola al confirmarse el pago. Por ahora esta función está en pruebas: el pago es simulado y no se cobra dinero.'],
+    ['¿Para qué piden mi documento, dirección y teléfono?', 'Solo para coordinar la entrega del domicilio. Se tratan según nuestra <a href="#/privacidad" style="color:var(--brand2);font-weight:700">Política de privacidad</a> y la Ley 1581 de 2012.'],
+    ['¿Puedo editar o eliminar mi publicación?', 'Puedes eliminarla desde el detalle del artículo (botón «Eliminar publicación»). La edición todavía no está disponible: elimina y vuelve a publicar.'],
+    ['Olvidé mi contraseña', `Por ahora no hay recuperación automática. Escríbenos a ${LEGAL.correo} desde el correo con el que te registraste.`],
+    ['¿Cómo reporto un usuario o una publicación?', `Escríbenos a ${LEGAL.correo} con el enlace de la publicación o el nombre de usuario y cuéntanos qué pasó. Revisaremos el caso.`],
+    ['¿Cómo elimino mi cuenta o mis datos?', `Envía tu solicitud a ${LEGAL.correo} desde tu correo registrado. Es tu derecho como titular de datos (Ley 1581 de 2012) y la atenderemos en los plazos legales.`]
+  ];
+  return `<div class="legal"><h1>Centro de ayuda</h1><p class="muted">Encuentra respuestas rápidas. Si no está tu duda, escríbenos.</p>
+  <div class="faq" style="margin-top:18px">${faq.map(f => `<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}</div>
+  <h2>Consejos de seguridad</h2><ul><li>Revisa bien las fotos y descripción, y pregunta por el estado real del artículo en el chat.</li><li>Si se encuentran en persona, háganlo en un lugar público y concurrido, de día y acompañado si es posible.</li><li>Nunca compartas contraseñas ni códigos de verificación, y no pagues ni envíes dinero fuera de la Plataforma.</li><li>Desconfía de quien te presione o ofrezca algo demasiado bueno para ser cierto.</li><li>Conserva el chat como evidencia y reporta cualquier conducta sospechosa.</li></ul>
+  <div class="box2"><b>¿Necesitas más ayuda?</b><br>Escríbenos a <a href="mailto:${LEGAL.correo}" style="color:var(--brand2);font-weight:700">${LEGAL.correo}</a>. Revisa también los <a href="#/terminos" style="color:var(--brand2);font-weight:700">Términos y condiciones</a> y la <a href="#/privacidad" style="color:var(--brand2);font-weight:700">Política de privacidad</a>.</div></div>`;
+};
+
+/* ---------- Router ---------- */
+let timer = null;
+const stopPoll = () => { clearInterval(timer); timer = null; };
+const startPoll = (fn, ms = 2500) => { stopPoll(); timer = setInterval(() => fn().catch(() => {}), ms); };
+
+async function route() {
+  stopPoll(); await load(); navbar();
+  const [path, query] = (location.hash.slice(1) || '/').split('?');
+  const p = path.split('/').filter(Boolean);
+  const guard = () => { if (!me) { location.hash = '#/login'; toast('Inicia sesión para continuar'); return false; } return true; };
+  let html = '';
+  switch (p[0]) {
+    case undefined: html = V.home(); break;
+    case 'explorar': if (query) { const q = new URLSearchParams(query); if (q.has('q')) flt.q = q.get('q'); } html = V.explore(); break;
+    case 'item': html = V.item(p[1]); break;
+    case 'login': html = me ? (location.hash = '#/perfil', '') : V.login(); break;
+    case 'registro': html = me ? (location.hash = '#/perfil', '') : V.register(); break;
+    case 'subir': if (!guard()) return; pending = []; html = V.upload(); break;
+    case 'perfil': if (!p[1] && !guard()) return; html = V.profile(p[1]); break;
+    case 'propuestas': if (!guard()) return; html = V.offers(); break;
+    case 'chat': if (!guard()) return; html = V.chat(p[1]); break;
+    case 'entrega': if (!guard()) return; html = V.delivery(p[1]); break;
+    case 'pagar': html = await payRoute(p[1], p[2]); break;
+    case 'terminos': html = V.terms(); break;
+    case 'privacidad': html = V.privacy(); break;
+    case 'como-funciona': html = V.how(); break;
+    case 'ayuda': html = V.help(); break;
+    default: html = '<div class="empty" style="margin-top:30px">Página no encontrada.</div>';
+  }
+  $('#app').innerHTML = html; window.scrollTo(0, 0);
+  if (p[0] === 'subir') drawSlots();
+  if (p[0] === 'chat' && $('#msgs')) { await refreshChat(p[1], true); startPoll(() => refreshChat(p[1])); }
+  if (p[0] === 'entrega') { const o = D.offers.find(x => x.id === p[1]); if (o && o.status === 'aceptada' && !o.paid) startPoll(() => pollDelivery(p[1]), 2000); }
+}
+function drawSlots() {
+  const s = $('#slots'); if (!s) return;
+  s.innerHTML = pending.map((x, i) => `<div class="slot"><img src="${x}"><span class="x" data-a="rmimg" data-i="${i}">✕</span></div>`).join('') +
+    (pending.length < 4 ? `<div class="slot" data-a="addimg">+<br>${pending.length ? 'Añadir' : 'Foto principal'}</div>` : '');
+}
+const rerender = () => route();
+
+/* ---------- Eventos ---------- */
+document.addEventListener('click', async e => {
+  const cat = e.target.closest('[data-cat]'); if (cat) { flt = { q: '', cats: cat.dataset.cat ? [cat.dataset.cat] : [], conds: [], city: '', sort: 'new' }; }
+  const t = e.target.closest('[data-a]'); if (!t) return;
+  const a = t.dataset.a, id = t.dataset.id;
+  if (a === 'close') { closeModal(); return; }
+  if (a === 'gate') { gate(); return; }
+  if (a === 'clear') { flt = { q: '', cats: [], conds: [], city: '', sort: 'new' }; rerender(); return; }
+  if (a === 'tab') { V.offers.tab = t.dataset.t; rerender(); return; }
+  if (a === 'zoom') { const m = $('.main-img'); if (m) m.src = t.src; return; }
+  if (a === 'logout') { localStorage.removeItem('tradeo_session'); V.offers.tab = 'rec'; location.hash = '#/'; toast('Sesión cerrada'); rerender(); return; }
+  if (a === 'addimg') { $('#file').click(); return; }
+  if (a === 'rmimg') { pending.splice(+t.dataset.i, 1); drawSlots(); return; }
+  if (a === 'delitem') { if (confirm('¿Eliminar esta publicación?')) { await Store.del('items', id); toast('Publicación eliminada'); location.hash = '#/perfil'; rerender(); } return; }
+  if (a === 'offer') { if (!me) { gate(); return; } openOffer(id); return; }
+  if (a === 'sendoffer') { await sendOffer(id); return; }
+  if (a === 'cancel') { await Store.set('offers', id, { status: 'cancelada' }); toast('Propuesta cancelada'); rerender(); return; }
+  if (a === 'reject') { await Store.set('offers', id, { status: 'rechazada' }); toast('Propuesta rechazada'); rerender(); return; }
+  if (a === 'accepttrade') { await acceptTrade(id); return; }
+  if (a === 'canceltrade') { if (confirm('¿Cancelar este trueque?')) { await Store.set('offers', id, { status: 'cancelada' }); await sys(id, `@${me.username} canceló el trueque.`); await refreshChat(id, true); } return; }
+});
+document.addEventListener('change', async e => {
+  const t = e.target;
+  if (t.id === 'file') {
+    for (const f of [...t.files]) {
+      if (pending.length >= 4) { toast('Máximo 4 imágenes por artículo'); break; }
+      if (!f.type.startsWith('image/')) { toast(`“${f.name}” no es una imagen`); continue; }
+      if (f.size > 10 * 1024 * 1024) { toast(`“${f.name}” pesa ${(f.size / 1048576).toFixed(1)} MB y supera el límite de 10 MB`); continue; }
+      try { pending.push(await compress(f)); } catch { toast('No se pudo leer una imagen'); }
+    }
+    t.value = ''; drawSlots(); return;
+  }
+  const k = t.dataset.f; if (!k) return;
+  if (k === 'cats' || k === 'conds') { flt[k] = t.checked ? [...flt[k], t.value] : flt[k].filter(x => x !== t.value); }
+  else flt[k] = t.value;
+  rerender();
+});
+document.addEventListener('submit', async e => {
+  e.preventDefault(); const f = e.target, k = f.dataset.form; if (!k) return;
+  const v = Object.fromEntries(new FormData(f)); const err = m => { const x = $('#err'); if (x) { x.textContent = m; x.style.display = 'block'; } };
+  if (k === 'msg') { const txt = (v.text || '').trim(); if (!txt) return; f.reset(); await Store.add('messages', { offerId: f.dataset.id, userId: me.id, text: txt, createdAt: Date.now() }); await refreshChat(f.dataset.id, true); return; }
+  if (k === 'delivery') {
+    const o = D.offers.find(x => x.id === f.dataset.id); if (!o) return;
+    const data = { name: v.name.trim(), address: v.address.trim(), city: v.city.trim(), docType: v.docType, doc: v.doc.trim(), phone: v.phone.trim(), at: Date.now() };
+    await Store.set('offers', o.id, { [o.fromUser === me.id ? 'delivFrom' : 'delivTo']: data }); toast('Datos guardados'); rerender(); return;
+  }
+  if (k === 'search') { flt = { q: v.q, cats: [], conds: [], city: '', sort: 'new' }; location.hash = '#/explorar'; rerender(); return; }
+  if (k === 'register') {
+    await load();
+    if (v.password !== v.password2) return err('Las contraseñas no coinciden.');
+    if (D.users.some(u => u.email.toLowerCase() === v.email.trim().toLowerCase())) return err('Ya existe una cuenta con ese correo.');
+    if (D.users.some(u => u.username.toLowerCase() === v.username.trim().toLowerCase())) return err('Ese nombre de usuario ya está en uso.');
+    const u = await Store.add('users', { name: v.name.trim(), username: v.username.trim(), email: v.email.trim().toLowerCase(), city: v.city.trim(), pass: await sha(v.email.trim().toLowerCase() + ':' + v.password), createdAt: Date.now() });
+    localStorage.setItem('tradeo_session', u.id); toast('¡Cuenta creada! Bienvenido a TruequeFacil'); location.hash = '#/perfil'; rerender();
+  }
+  if (k === 'login') {
+    await load(); const em = v.email.trim().toLowerCase(); const h = await sha(em + ':' + v.password);
+    const u = D.users.find(x => x.email === em && x.pass === h);
+    if (!u) return err('Correo o contraseña incorrectos.');
+    localStorage.setItem('tradeo_session', u.id); V.offers.tab = 'rec'; toast('Sesión iniciada'); location.hash = '#/perfil'; rerender();
+  }
+  if (k === 'upload') {
+    if (!me) return;
+    try { await Store.add('items', { userId: me.id, title: v.title.trim(), category: v.category, condition: v.condition, description: v.description.trim(), city: v.city.trim(), images: pending, wantTitle: v.wantTitle.trim(), wantCategory: v.wantCategory, wantNotes: v.wantNotes.trim(), status: 'disponible', createdAt: Date.now() }); }
+    catch (er) { console.error(er); return err('No se pudo guardar: el almacenamiento está lleno o las fotos son demasiado pesadas. Prueba con menos fotos.'); }
+    pending = []; toast('¡Artículo publicado!'); location.hash = '#/perfil'; rerender();
+  }
+});
+function openOffer(targetId) {
+  const t = item(targetId); const mine = D.items.filter(i => i.userId === me.id && i.status !== 'intercambiado');
+  if (!mine.length) { openModal(`<div class="center"><h2 style="font-size:20px">Primero sube un artículo</h2><p class="muted">Para proponer un intercambio necesitas tener al menos un artículo disponible.</p><a class="btn dark" href="#/subir" data-a="close">Subir artículo</a></div>`); return; }
+  openModal(`<h2 style="font-size:20px">Proponer intercambio</h2><p class="muted">Por: <b>${esc(t.title)}</b>. Elige cuál de tus artículos ofreces:</p>
+  ${mine.map((i, n) => `<label class="pick"><input type="radio" name="mine" value="${i.id}" ${n === 0 ? 'checked' : ''}>${img(i)}<span><b style="color:#222">${esc(i.title)}</b><br><span class="muted">${esc(i.category)} · ${esc(i.condition)}</span></span></label>`).join('')}
+  <label class="f">Mensaje (opcional)</label><input id="msg" maxlength="140" placeholder="Ej. ¡Me interesa mucho, está en buen estado!">
+  <br><a class="btn dark block" data-a="sendoffer" data-id="${targetId}">Enviar propuesta</a>`);
+}
+async function sendOffer(targetId) {
+  const sel = document.querySelector('input[name=mine]:checked'); if (!sel) return;
+  const t = item(targetId);
+  if (D.offers.some(o => o.status === 'pendiente' && o.fromUser === me.id && o.offeredItem === sel.value && o.targetItem === targetId)) { toast('Ya enviaste esa propuesta'); return; }
+  const msg = $('#msg').value.trim();
+  const n = await Store.add('offers', { fromUser: me.id, toUser: t.userId, offeredItem: sel.value, targetItem: targetId, message: msg, status: 'pendiente', accFrom: false, accTo: false, createdAt: Date.now() });
+  await sys(n.id, `@${me.username} propuso un trueque: «${item(sel.value)?.title}» por «${t.title}».`);
+  if (msg) await Store.add('messages', { offerId: n.id, userId: me.id, text: msg, createdAt: Date.now() });
+  closeModal(); toast('Propuesta enviada. ¡Conversa en el chat!'); location.hash = '#/chat/' + n.id;
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
